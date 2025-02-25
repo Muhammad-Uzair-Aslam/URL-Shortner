@@ -1,16 +1,17 @@
 "use client";
-// pages/dashboard.js
-import { useState } from "react";
 import {
-  Link,
+  
   History,
   BarChart2,
   Settings,
   Filter,
   Edit2,
-  Copy,
-  Bell,
 } from "lucide-react";
+import CustomSlugInput from "../../components/customSlugInput/CustomSlugInput";
+import NotificationLoggedIn from "../../components/notificationLoggedIn/NotificationLoggedIn";
+import { AiOutlineDelete } from "react-icons/ai";
+import { FaCopy, FaLink, FaLinkSlash } from "react-icons/fa6";
+import { FaVimeo, FaYoutube } from "react-icons/fa";
 
 export default function Dashboard() {
   const demoData = [
@@ -38,116 +39,78 @@ export default function Dashboard() {
       status: "Active",
       date: "Oct - 01 2023",
     },
-    // Add more items as needed
   ];
 
   return (
-    <div className="min-h-screen bg-[#0B0F19] text-white">
-      {/* Background Pattern */}
-      <div
-        className="fixed inset-0"
-        style={{
-          background: `
-            repeating-radial-gradient(
-              circle at 50% 50%,
-              transparent 0px,
-              transparent 199px,
-              rgba(51, 51, 51, 0.1) 200px,
-              transparent 201px,
-              transparent 400px
-            ),
-            repeating-radial-gradient(
-              circle at 50% 50%,
-              transparent 0px,
-              transparent 299px,
-              rgba(51, 51, 51, 0.07) 300px,
-              transparent 301px,
-              transparent 600px
-            )
-          `,
-          maskImage:
-            "radial-gradient(circle at 50% 50%, black 0%, transparent 90%)",
-        }}
-      />
-      {/* Top Navigation */}
-      <nav className="relative z-10 flex justify-between items-center p-4 border-b border-gray-800">
+    <div className="min-h-screen bg-[#151A24] text-white">
+       <div className="absolute inset-0">
+        <div className="absolute inset-0" style={{
+         backgroundImage: `url('./assets/images/Swirl.png')`, 
+         backgroundSize: '100% 100%',
+         backgroundRepeat: 'no-repeat',
+        }} />
+        <div className="absolute inset-0 " style={{
+          backgroundImage: `url('./assets/images/Cubes.png')`, 
+          backgroundSize: '100% 100%',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+          opacity: '0.8' 
+        }} />
+      </div>
+      <div className="bg-[#0B101B]/50 border-gray-800  pb-5">
+      <nav className="relative z-10 flex flex-col   md:flex-row justify-between items-center p-4  ">
         <div className="flex items-center gap-8">
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+          <h1 className="text-[34px] md:mr-5 lg:mr-10 font-[700] bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
             Linkly
           </h1>
-          <div className="flex-1 flex items-center bg-[#1A1F2E] rounded-lg px-2 py-1.5 w-[400px]">
-            <Link className="text-gray-400 mr-2" size={18} />
-            <input
-              type="text"
-              placeholder="Enter the link here"
-              className="w-full bg-transparent border-none focus:outline-none text-white text-sm"
-            />
-            <button className="px-4 py-1.5 bg-blue-600 rounded-lg text-sm hover:bg-blue-700">
-              Shorten Now!
-            </button>
-          </div>
         </div>
-        <div className="flex items-center gap-4">
-          <button className="p-2 bg-[#1A1F2E] rounded-lg relative">
-            <Bell size={20} />
-            <span className="absolute top-1 right-1 w-2 h-2 bg-blue-500 rounded-full"></span>
-          </button>
-          <div className="flex items-center gap-2 px-3 py-1.5 bg-[#1A1F2E] rounded-lg">
-            <span>Mohammed</span>
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path d="M6 9l6 6 6-6" />
-            </svg>
-          </div>
+          <CustomSlugInput placeholder="Enter the link here" clickHandler={()=>{}} title="Shorten Now" /> 
+          <div className="my-5 md:my-0 md:ml-5 lg:md-10">
+        <NotificationLoggedIn/>
         </div>
       </nav>
-      {/* Auto Paste Checkbox */}
-      <div className="relative z-10 flex justify-center mt-2">
-        <label className="flex items-center gap-2 text-sm text-gray-400">
-          <input
-            type="checkbox"
-            className="rounded bg-gray-700 border-gray-600"
-          />
-          Auto Paste to Clipboard
-        </label>
+  <div className="relative z-10 flex justify-center">
+  <label className="flex items-center gap-2 text-sm text-gray-400">
+    <div className="relative inline-block w-12 h-6 rounded-full bg-gray-800 border border-gray-700">
+      <input
+        type="checkbox"
+        className="sr-only peer"
+      />
+      <span className="absolute inset-y-1 left-1 w-4 h-4 rounded-full bg-gray-600 peer-checked:bg-[#144EE3] peer-checked:left-7 transition-all duration-200"></span>
+    </div>
+    Auto Paste to Clipboard
+  </label>
+</div>
       </div>
-      {/* Tab Navigation */}
-      <div className="relative z-10 flex justify-center gap-8 mt-6 text-sm">
+      <div className="relative z-10 flex bg-[#181E29] justify-center gap-8 py-3 text-sm shadow-md">
         <button className="flex items-center gap-2 text-blue-500 border-b-2 border-blue-500 pb-2">
           <History size={16} />
           History
         </button>
-        <button className="flex items-center gap-2 text-gray-400 hover:text-gray-300">
+        <button className="flex items-center gap-2 text-gray-200 hover:text-gray-300">
           <BarChart2 size={16} />
           Statistics
         </button>
-        <button className="flex items-center gap-2 text-gray-400 hover:text-gray-300">
+        <button className="flex items-center gap-2 text-gray-200 hover:text-gray-300">
           <Settings size={16} />
           Settings
         </button>
       </div>
-      {/* History Section */}
       <main className="relative z-10 max-w-7xl mx-auto px-6 py-8">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-lg flex items-center gap-2">
-            History <span className="text-sm text-gray-400">(143)</span>
+            History <span className="text-sm text-gray-200">(143)</span>
           </h2>
-          <button className="flex items-center gap-2 text-sm text-gray-400 bg-[#1A1F2E] px-3 py-1.5 rounded-lg">
+          <button className="flex items-center gap-2 text-sm text-gray-200 border border-gray-700 bg-[#1A1F2E] px-3 py-1.5 rounded-[25]">
             <Filter size={16} />
             Filter
           </button>
         </div>
 
-        <div className="bg-[#1A1F2E] rounded-lg overflow-hidden">
+        <div className="bg-[#0B101B] overflow-x-auto rounded-lg overflow-hidden">
           <table className="w-full">
-            <thead>
-              <tr className="text-gray-400 text-left text-sm border-b border-gray-800">
+            <thead className="bg-[#0D1117]">
+              <tr className="text-[#C9CED6] text-left text-[15px] font-[700] border-b border-gray-800">
                 <th className="p-4">Short Link</th>
                 <th className="p-4">Original Link</th>
                 <th className="p-4">QR Code</th>
@@ -159,23 +122,22 @@ export default function Dashboard() {
             </thead>
             <tbody className="text-sm">
               {demoData.map((item, index) => (
-                <tr key={index} className="border-b border-gray-800">
+                <tr key={index} className="border-b bg-[#1A2333] border-gray-800">
                   <td className="p-4">
                     <div className="flex items-center gap-2">
                       <span className="text-gray-300">{item.shortLink}</span>
-                      <Copy
-                        size={14}
-                        className="text-gray-400 cursor-pointer hover:text-white"
-                      />
+                      <div className="p-3 bg-gray-800 hover:bg-gray-900 rounded-[20]">
+                      <FaCopy />
+                      </div>
                     </div>
                   </td>
                   <td className="p-4">
                     <div className="flex items-center gap-2 max-w-xs truncate">
                       {item.platform === "Twitter" && (
-                        <div className="w-5 h-5 bg-blue-400 rounded-full flex items-center justify-center">
+                        <div className="w-7 h-7 bg-blue-400 rounded-full flex items-center justify-center">
                           <svg
-                            width="12"
-                            height="12"
+                            width="17"
+                            height="17"
                             viewBox="0 0 24 24"
                             fill="white"
                           >
@@ -183,6 +145,9 @@ export default function Dashboard() {
                           </svg>
                         </div>
                       )}
+                      {item.platform==="Youtube" && <div className=""><FaYoutube size={25} color="red"/></div> }
+                      {item.platform==="Chrome" && <div className=""><FaVimeo size={25} color=""/></div> }
+
                       <span className="text-gray-400">{item.originalLink}</span>
                     </div>
                   </td>
@@ -194,23 +159,28 @@ export default function Dashboard() {
                   <td className="p-4 text-gray-300">{item.clicks}</td>
                   <td className="p-4">
                     <span
-                      className={`px-2 py-1 rounded-full text-xs ${
+                      className={`flex justify-center items-center px-2 py-1 rounded-full text-[14px] ${
                         item.status === "Active"
-                          ? "text-green-500"
-                          : "text-yellow-500"
+                          ? "text-[#1EB036]"
+                          : "text-[#B0901E]"
                       }`}
                     >
                       {item.status}
+                      {item.status==="Active"?<div className="mx-2 p-3 rounded-[20] bg-[#1EB03624] text-white">
+                         <FaLink/>
+                      </div>:<div className="mx-2 p-3 rounded-[20] bg-[#B0901E30]">
+                        <FaLinkSlash/>
+                        </div>}
                     </span>
                   </td>
                   <td className="p-4 text-gray-400">{item.date}</td>
                   <td className="p-4">
                     <div className="flex gap-2">
-                      <button className="p-1.5 bg-gray-800 rounded-lg hover:bg-gray-700">
+                      <button className="p-3  bg-gray-800 rounded-[20] hover:bg-gray-700">
                         <Edit2 size={14} />
                       </button>
-                      <button className="p-1.5 bg-gray-800 rounded-lg hover:bg-gray-700">
-                        <Copy size={14} />
+                      <button className="p-3 bg-gray-800 rounded-[20] hover:bg-gray-700">
+                      <AiOutlineDelete />
                       </button>
                     </div>
                   </td>
