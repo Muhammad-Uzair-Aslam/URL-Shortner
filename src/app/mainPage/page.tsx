@@ -1,4 +1,3 @@
-"use client";
 import {
   
   History,
@@ -12,8 +11,11 @@ import NotificationLoggedIn from "../../components/notificationLoggedIn/Notifica
 import { AiOutlineDelete } from "react-icons/ai";
 import { FaCopy, FaLink, FaLinkSlash } from "react-icons/fa6";
 import { FaVimeo, FaYoutube } from "react-icons/fa";
+import { auth } from "@/lib/auth";
+import Link from "next/link";
 
-export default function Dashboard() {
+export default async function Dashboard() {
+  const session=await auth()
   const demoData = [
     {
       shortLink: "https://linkly.com/Rx43cQmg",
@@ -64,8 +66,10 @@ export default function Dashboard() {
             Linkly
           </h1>
         </div>
-          <CustomSlugInput placeholder="Enter the link here" clickHandler={()=>{}} title="Shorten Now" /> 
+          {/* <CustomSlugInput placeholder="Enter the link here" clickHandler={()=>{}} title="Shorten Now" />  */}
           <div className="my-5 md:my-0 md:ml-5 lg:md-10">
+          {session?.user?(        <NotificationLoggedIn/>
+):<Link href={''}>logout</Link>}
         <NotificationLoggedIn/>
         </div>
       </nav>
