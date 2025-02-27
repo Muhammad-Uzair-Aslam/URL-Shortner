@@ -1,18 +1,8 @@
-"use client";
-import { useRouter } from 'next/navigation';
-import { useState } from "react";
-import {  Twitter, Youtube, Chrome, Image } from "lucide-react";
-import { CiLogin } from "react-icons/ci";
-import { Button } from "@/components/button/Button";
-import CustomText from "@/components/customText/CustomText";
-import CustomSlugInput from "@/components/customSlugInput/CustomSlugInput";
-import Link from "next/link";
+import React from 'react'
 import { FaCopy, FaLink, FaLinkSlash } from "react-icons/fa6";
-import { Router } from "next/router";
-// import Link from 'next/link';
-export default function Dashboard() {
-const router=useRouter()
-  const demoData = [
+import {  Twitter, Youtube, Chrome, Image } from "lucide-react";
+
+const demoData = [
     {
       shortLink: "https://linkly.com/Rx43cQmg",
       originalLink: "https://www.twitter.com/tweets/NewGuDhal",
@@ -54,70 +44,9 @@ const router=useRouter()
       date: "Sep - 18 2023",
     },
   ];
-
+export default function TrialTable() {
   return (
-    <div className="min-h-screen bg-[#0B101B] text-white">
-      <div className="absolute inset-0">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url('./assets/images/Swirl.png')`,
-            backgroundSize: "100% 100%",
-            backgroundRepeat: "no-repeat",
-          }}
-        />
-        <div
-          className="absolute inset-0 "
-          style={{
-            backgroundImage: `url('./assets/images/Cubes.png')`,
-            backgroundSize: "100% 100%",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
-            opacity: "0.8",
-          }}
-        />
-      </div>
-      <nav className="relative z-10 flex justify-between items-center p-6">
-        <h1 className="text-[34px] font-[700] text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500">
-          Linkly
-        </h1>
-        <div className="flex gap-4">
-          <button className="px-6 bg-[#181E29] rounded-[25px] py-2 flex text-[15px] items-center gap-2 text-gray-300 hover:text-white">
-            {" "}
-            <Link href={'./signin'}>Login</Link>
-             <CiLogin size={25} color="white" />
-          </button>
-          <div className='hidden md:block'>
-          <Button clickHandler={() => {router.push('./signup')}} title="Register Now" />{" "}
-          </div>
-        </div>
-      </nav>
-      <main className="relative z-10 max-w-7xl mx-auto px-4 py-8">
-        <CustomText />
-        <div className="max-w-xl mx-auto mb-12">
-          <CustomSlugInput
-            title="Shorten Now!"
-            placeholder="Enter the link here"
-            clickHandler={() => {}}
-          />
-          <div className="relative z-10 flex justify-center my-4">
-            <label className="flex items-center gap-2 text-sm text-gray-400">
-              <div className="relative inline-block w-12 h-6 rounded-full bg-gray-800 border border-gray-700">
-                <input type="checkbox" className="sr-only peer" />
-                <span className="absolute inset-y-1 left-1 w-4 h-4 rounded-full bg-gray-600 peer-checked:bg-[#144EE3] peer-checked:left-7 transition-all duration-200"></span>
-              </div>
-              Auto Paste to Clipboard
-            </label>
-          </div>
-          <div className="text-sm text-gray-400 mt-4 text-center">
-            You can create <span className="text-pink-500">05</span> more links.{" "}
-            <Link href="./signup" className="text-blue-500">
-              Register Now
-            </Link>{" "}
-            to enjoy Unlimited usage <span className="text-gray-500">ⓘ</span>
-          </div>
-        </div>
-        <div className="overflow-x-auto ">
+<div className="overflow-x-auto ">
           <table className="w-full">
             <thead>
               <tr className="text-gray-200 text-left bg-[#181E29]">
@@ -138,7 +67,7 @@ const router=useRouter()
                   <td className="p-4">
                     <div className="flex items-center gap-2">
                       {item.shortLink}
-                      <div className="p-3 bg-gray-800 hover:bg-gray-900 rounded-[20]">
+                      <div className="p-3 bg-gray-800 hover:bg-gray-900 rounded-[20px]">
                         <FaCopy />
                       </div>{" "}
                     </div>
@@ -178,11 +107,11 @@ const router=useRouter()
                     >
                       {item.status}
                       {item.status === "Active" ? (
-                        <div className="mx-2 p-3 rounded-[20] bg-[#1EB03624] text-white">
+                        <div className="mx-2 p-3 rounded-[20px] bg-[#1EB03624] text-white">
                           <FaLink />
                         </div>
                       ) : (
-                        <div className="mx-2 p-3 rounded-[20] bg-[#B0901E30]">
+                        <div className="mx-2 p-3 rounded-[20px] bg-[#B0901E30]">
                           <FaLinkSlash />
                         </div>
                       )}
@@ -193,8 +122,5 @@ const router=useRouter()
               ))}
             </tbody>
           </table>
-        </div>
-      </main>
-    </div>
-  );
+        </div>  )
 }
