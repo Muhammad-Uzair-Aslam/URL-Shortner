@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -11,12 +11,11 @@ export default function SignInForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [loading,setLoading]=useState(false)
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
-
   const LoginButtonHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
     try {
       const result = await signIn("credentials", {
         email,
@@ -24,20 +23,18 @@ export default function SignInForm() {
         redirect: false,
       });
       if (result?.error) {
-        setError(result?.error); 
+        setError(result?.error);
         toast.error(result?.error);
       } else {
-        router.push("/dashboard"); 
+        router.push("/dashboard");
       }
     } catch (error: any) {
       console.error("Sign-in error:", error);
       setError(error);
-    }
-    finally{
-        setLoading(false)
+    } finally {
+      setLoading(false);
     }
   };
-
   return (
     <form
       onSubmit={LoginButtonHandler}
@@ -56,8 +53,7 @@ export default function SignInForm() {
         width="w-full"
       />
       {error && <p className="text-red-500">{error}</p>}
-      {loading&& <Loader/>
-      }
+      {loading && <Loader />}
       <Button title="Login" Type="submit" />
     </form>
   );
