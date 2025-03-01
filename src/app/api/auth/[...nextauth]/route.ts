@@ -18,25 +18,23 @@ const AuthOptions: NextAuthOptions = {
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Email and Password are required");
         }
-
         try {
           const user = await prisma.user.findUnique({
             where: { email: credentials.email },
           });
-
           if (!user) {
             throw new Error("User not found");
           }
-
-          const passwordMatch = await bcrypt.compare(credentials.password, user.password);
+          const passwordMatch = await bcrypt.compare(
+            credentials.password,
+            user.password
+          );
           if (!passwordMatch) {
             throw new Error("Invalid credentials");
           }
-
           return user;
-        } catch (error:any) {
+        } catch (error: any) {
           throw new Error(error);
-          
         }
       },
     }),
