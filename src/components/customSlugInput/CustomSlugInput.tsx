@@ -26,7 +26,7 @@ export default function CustomSlugInput({placeholder,title,clickHandler}:CustomS
             <Button title={title} clickHandler={clickHandler}/>
             </div>
             <div className='block md:hidden'>
-            <button className="w-[50]  bg-[#0066FF] text-white py-3 rounded-[25px] hover:bg-[#0052CC] transition-all duration-200 font-medium" onClick={clickHandler}>
+            <button className="w-[50px]  bg-[#0066FF] text-white py-3  rounded-[25px] hover:bg-[#0052CC] transition-all duration-200 font-medium" onClick={clickHandler}>
             <div className='flex justify-center'>
             <FaArrowRight size={25} color='white' />
 

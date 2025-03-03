@@ -7,6 +7,7 @@ import {
 import NotificationLoggedIn from "@/components/notificationLoggedIn/NotificationLoggedIn";
 import DashboardTable from "@/components/dashboardTable/DashboardTable";
 import AutoPasteClipboard from "@/components/autoPasteClipboard/AutoPasteClipboard";
+import CustomSlugInput from "@/components/customSlugInput/CustomSlugInput";
 
 export default async function Page() {
   
@@ -34,6 +35,7 @@ export default async function Page() {
             Linkly
           </h1>
         </div>
+        <CustomSlugInput title="Shorten Now" placeholder="Enter the link here"/>
           <div className="my-5 md:my-0 md:ml-5 lg:md-10">
         <NotificationLoggedIn/>
 
