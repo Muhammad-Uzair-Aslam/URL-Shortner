@@ -20,6 +20,8 @@ model User {
   password      String?         // Add this field
   accounts      Account[]
   sessions      Session[]
+  resetToken      String?   
+  resetTokenExpiry DateTime? 
   role          UserRole?       @default(USER)
   Authenticator Authenticator[]
   createdAt     DateTime        @default(now())

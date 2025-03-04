@@ -35,24 +35,15 @@ export default function ForgotPasswordPage() {
       </div>
       <div className="relative z-10 w-full px-4 flex flex-col items-center">
         <div className="w-full max-w-md">
-          <h2 className="text-4xl lg:text-[50px] font-bold text-center mb-6">
-            <span className="bg-gradient-to-r from-[#144EE3] to-[#EB568E] text-transparent bg-clip-text">
-              For
-            </span>
-            <span className="bg-gradient-to-r from-[#EB568E] to-[#A353AA] text-transparent bg-clip-text">
-              get{" "}
-            </span>
-            <span className="bg-gradient-to-r from-[#A353AA] to-[#144EE3] text-transparent bg-clip-text">
-              password{" "}
-            </span>
-            <span className="text-[#144EE3]"></span>
+          <h2 className="text-4xl lg:text-[50px] font-bold text-center mb-2 bg-custom-gradient text-transparent bg-clip-text leading-[1.2] p-2 tracking-normal">
+            Forget password
           </h2>
           <p className="text-gray-400 mb-6 text-center">
             Enter your email address and we’ll send you a link to reset your
             password.
           </p>
         </div>
-        <ForgetPasswordForm/>
+        <ForgetPasswordForm />
       </div>
       <div className="text-gray-400 text-sm z-10 mb-5">
         <Link href="/signin" className="text-[#0066FF] hover:underline">

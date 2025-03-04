@@ -16,6 +16,9 @@ export default {
         warning: '#FFC107',
         danger: '#F44336',
       },
+      backgroundImage: {
+        'custom-gradient': 'linear-gradient(to right, #144EE3, #EB568E, #A353AA, #144EE3)',
+      },
     },
   },
   plugins: [],

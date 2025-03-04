@@ -5,7 +5,7 @@ import authReducer from "./slices/authSlices";
 export const makeStore = () => {
   return configureStore({
     reducer: {
-      auth: authReducer, // Auth reducer ko add kiya
+      auth: authReducer, 
     },
   });
 };

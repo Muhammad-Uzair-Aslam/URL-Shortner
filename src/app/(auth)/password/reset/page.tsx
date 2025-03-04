@@ -1,9 +1,7 @@
-import React from "react";
+import ResetPasswordForm from "@/components/resetPasswordForm/ResetPasswordForm";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import ChangePasswordForm from "@/components/changePasswordForm/ChangePasswordForm";
 
-export default function ForgotPasswordPage() {
+export default function ResetPasswordPage() {
   return (
     <main className="min-h-screen bg-[#0B101B] flex flex-col items-center justify-between relative overflow-hidden">
       <div className="absolute inset-0">
@@ -16,7 +14,7 @@ export default function ForgotPasswordPage() {
           }}
         />
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 "
           style={{
             backgroundImage: `url('../assets/images/Cubes.png')`,
             backgroundSize: "100% 100%",
@@ -33,18 +31,15 @@ export default function ForgotPasswordPage() {
         </h1>
       </div>
       <div className="relative z-10 w-full px-4 flex flex-col items-center">
-        <div className="w-full max-w-md">
-        <h2 className="text-4xl lg:text-[50px] font-bold text-center mb-2 bg-custom-gradient text-transparent bg-clip-text leading-[1.2] p-2 tracking-normal">
-  Change password
-</h2>
+          <h2 className="text-4xl lg:text-[50px] font-bold text-center mb-2 bg-custom-gradient text-transparent bg-clip-text leading-[1.2] p-2 tracking-normal">
+            Reset your password
+          </h2>
           <p className="text-gray-400 mb-6 text-center">
-            Enter your old and new password below to change your password.
+            Enter your new password below to reset your password.
           </p>
-        </div>
-        <ChangePasswordForm/>
+        <ResetPasswordForm />
       </div>
-      <div className="text-gray-400 text-sm z-10 mb-5">  
-      </div>
+      <div className="text-gray-400 text-sm z-10 mb-5"></div>
     </main>
   );
 }
