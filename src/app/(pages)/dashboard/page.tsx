@@ -13,21 +13,7 @@ export default async function Page() {
   
 
   return (
-    <div className="min-h-screen bg-[#151A24] text-white">
-       <div className="absolute inset-0">
-        <div className="absolute inset-0" style={{
-         backgroundImage: `url('./assets/images/Swirl.png')`, 
-         backgroundSize: '100% 100%',
-         backgroundRepeat: 'no-repeat',
-        }} />
-        <div className="absolute inset-0 " style={{
-          backgroundImage: `url('./assets/images/Cubes.png')`, 
-          backgroundSize: '100% 100%',
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center',
-          opacity: '0.8' 
-        }} />
-      </div>
+    <div className="min-h-screen  text-white">
       <div className="bg-[#0B101B]/50 border-gray-800  pb-5">
       <nav className="relative z-10 flex flex-col   md:flex-row justify-between items-center p-4  ">
         <div className="flex items-center gap-8">

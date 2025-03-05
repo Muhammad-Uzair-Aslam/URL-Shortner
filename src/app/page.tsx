@@ -7,27 +7,8 @@ import AutoPasteClipboard from '@/components/autoPasteClipboard/AutoPasteClipboa
 export default function Page() {
   
   return (
-    <div className="min-h-screen bg-[#0B101B] text-white">
-      <div className="absolute inset-0">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url('./assets/images/Swirl.png')`,
-            backgroundSize: "100% 100%",
-            backgroundRepeat: "no-repeat",
-          }}
-        />
-        <div
-          className="absolute inset-0 "
-          style={{
-            backgroundImage: `url('./assets/images/Cubes.png')`,
-            backgroundSize: "100% 100%",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
-            opacity: "0.8",
-          }}
-        />
-      </div>
+    <div className="min-h-screen  text-white">
+      
       <nav className="relative z-10 flex justify-between items-center p-6">
         <h1 className="text-[34px] font-[700] text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500">
           Linkly
@@ -44,7 +25,7 @@ export default function Page() {
         </div>
       </nav>
       <main className="relative z-10 max-w-7xl mx-auto px-4 py-8">
-        <CustomText />
+        <CustomText title="Shorten Your Loooong Links :)" description="Linkly is an efficient and easy-to-use URL shortening service that streamlines your online experience."/>
         <div className="max-w-xl mx-auto mb-12">
           <CustomSlugInput
             title="Shorten Now!"

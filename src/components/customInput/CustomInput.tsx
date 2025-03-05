@@ -4,8 +4,9 @@ interface InputFieldProps {
   type: string;
   placeholder: string;
   width?: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   value?: string | null | undefined;
+  disabled?: boolean;
 }
 
 const CustomInput: React.FC<InputFieldProps> = ({
@@ -14,6 +15,7 @@ const CustomInput: React.FC<InputFieldProps> = ({
   placeholder,
   width = "900px",
   onChange,
+  disabled
 }) => {
   return (
     <input
