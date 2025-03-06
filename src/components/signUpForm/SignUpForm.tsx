@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import CustomInput from "../customInput/CustomInput";
 import { Button } from "../button/Button";
 import Loader from "../loader/Loader";
-import { useAppDispatch, useAppSelector } from "@/redux/reduxHook/ReduxHook";
+import { useAppDispatch, useAppSelector } from "@/redux/reduxHook/reduxHook";
 import { signupUser } from "@/redux/slices/authSlices";
 
 export default function SignUpForm() {

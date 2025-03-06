@@ -28,6 +28,8 @@ export default function SignInForm() {
         toast.error(result?.error);
       } else {
         router.push("/dashboard");
+        setLoading(false);
+
       }
     } catch (error: any) {
       console.error("Sign-in error:", error);

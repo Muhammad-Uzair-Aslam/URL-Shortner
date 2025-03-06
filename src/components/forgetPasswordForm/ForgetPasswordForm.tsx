@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { Button } from '../button/Button'
 import CustomInput from '../customInput/CustomInput'
-import { useAppDispatch, useAppSelector } from '@/redux/reduxHook/ReduxHook'
+import { useAppDispatch, useAppSelector } from '@/redux/reduxHook/reduxHook'
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
 import { forgotPassword } from '@/redux/slices/authSlices'

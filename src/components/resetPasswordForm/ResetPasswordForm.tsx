@@ -2,7 +2,7 @@
 import React from 'react'
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { useAppDispatch, useAppSelector } from "@/redux/reduxHook/ReduxHook";
+import { useAppDispatch, useAppSelector } from "@/redux/reduxHook/reduxHook";
 import { resetPassword } from "@/redux/slices/authSlices";
 import { toast } from "react-toastify";
 import CustomInput from "@/components/customInput/CustomInput";
@@ -40,7 +40,7 @@ export default function ResetPasswordForm() {
     onSubmit={handleResetPassword}
     className="w-full max-w-[560px] space-y-4 flex flex-col items-center"
   >
-        <CustomInput
+    <CustomInput
       type="password"
       placeholder="New Password"
       value={newPassword}

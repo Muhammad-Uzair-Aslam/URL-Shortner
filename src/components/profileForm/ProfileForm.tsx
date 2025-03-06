@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Button } from "../button/Button";
 import CustomInput from "../customInput/CustomInput";
 import { useSession } from "next-auth/react";
-import { useAppDispatch, useAppSelector } from "@/redux/reduxHook/ReduxHook";
+import { useAppDispatch, useAppSelector } from "@/redux/reduxHook/reduxHook";
 import { updateProfile } from "@/redux/slices/profileSlice";
 import { toast } from "react-toastify";
 import Loader from "../loader/Loader";

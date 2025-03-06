@@ -45,6 +45,7 @@ export const AuthOptions: NextAuthOptions = {
         if (user) {
           session.user.name = user.name;
           session.user.email = user.email;
+           session.user.id=user.id
         }
       }
       return session;
@@ -52,8 +53,12 @@ export const AuthOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.email = user.email;
+         token.id=user.id
       }
       return token;
+    },
+    async redirect({ url, baseUrl }) {
+      return `${baseUrl}/dashboard`;
     },
   },
   pages: {

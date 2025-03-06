@@ -5,9 +5,8 @@ import React, { useEffect } from "react";
 export default function NextAuthSessionProvider({ children }: {
   children: React.ReactNode;
 }) {
-  useEffect(() => {
-    console.log("SessionProvider initialized");
-  }, []);
+  // useEffect(() => {
+  // }, []);
   return (
     <SessionProvider>
       {children}
