@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useAppDispatch } from "@/redux/reduxHook/reduxHook";
-import { shortenUrl, fetchTrialUrls, fetchUrls } from "@/redux/slices/urlSlice";
+import { shortenUrl, fetchTrialUrls, fetchUrls, generateQrCode } from "@/redux/slices/urlSlice";
 import { useSession } from "next-auth/react";
 import { FaArrowRight } from "react-icons/fa6";
 import { Button } from "../button/Button";
@@ -57,17 +57,23 @@ export default function CustomSlugInput({ title, placeholder, fetchAction }: Cus
 
     try {
       const result = await dispatch(shortenUrl({ originalUrl: url })).unwrap();
-      console.log("Shortened URL:", result); // Debug
+      console.log("Shortened URL Result:", result);
+      const shortCode = result.url?.shortCode || result.shortUrl.split("/").pop();
+      if (!shortCode) {
+        throw new Error("Short code not found in response");
+      }
+      await dispatch(generateQrCode(shortCode)).unwrap();
       if (fetchAction === "trial") {
         await dispatch(fetchTrialUrls());
       } else if (fetchAction === "urls") {
         await dispatch(fetchUrls());
       }
-      toast.success("URL shortened successfully!");
+
+      toast.success("URL shortened and QR code generated successfully!");
       setUrl("");
     } catch (err) {
-      toast.error("Failed to shorten URL");
-      console.error("Shortening error:", err);
+      toast.error("Failed to shorten URL or generate QR code");
+      console.error("Error:", err);
     }
   };
 

@@ -34,7 +34,7 @@ export default function EditForm() {
       setCustomSlug("");
       if (session) {
         dispatch(fetchUrls());
-        await dispatch(generateQrCode(result.payload.url.shortCode)); // Trigger QR generation
+        await dispatch(generateQrCode(result.payload.url.shortCode)); 
       } else {
         dispatch(fetchTrialUrls());
         await dispatch(generateQrCode(result.payload.url.shortCode));
@@ -42,14 +42,11 @@ export default function EditForm() {
       dispatch(resetShortenState());
     }
   };
-
-  // Handle slug availability check and generate
   const handleGenerate = async () => {
     if (!url) {
       toast.error("Please enter a URL to shorten.");
       return;
     }
-
     if (!session) {
       toast.info("Custom slugs are available for logged-in users only.");
       setCustomSlug("");
@@ -87,7 +84,6 @@ export default function EditForm() {
         }}
       >
         <div className="space-y-4">
-          {/* URL Input */}
           <div className="bg-[#1A1F2E] border-2 border-[#353C4A] rounded-[30px] p-1 py-2">
             <div className="flex items-center bg-transparent px-4 py-2">
               <Link className="text-gray-400 mr-2" size={20} />
@@ -111,7 +107,7 @@ export default function EditForm() {
                 placeholder="Enter Custom Slug (Logged-in users only)"
                 className="w-full bg-transparent border-none focus:outline-none text-white"
                 value={customSlug}
-                onChange={(e) => setCustomSlug(e.target.value.trim().toLowerCase())} // Fixed
+                onChange={(e) => setCustomSlug(e.target.value.trim().toLowerCase())} 
                 disabled={loading || status !== "authenticated"}
               />
             </div>
