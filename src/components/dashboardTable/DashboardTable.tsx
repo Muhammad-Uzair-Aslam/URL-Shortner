@@ -12,13 +12,17 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { toast, ToastContainer } from "react-toastify";
 import { QRCodeSVG } from "qrcode.react";
+import Loader from "../loader/Loader";
 export default function DashboardTable() {
   const dispatch = useAppDispatch();
   const { urls, loading, error } = useAppSelector((state) => state.urls);
   const { data: session, status } = useSession();
 
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [editForm, setEditForm] = useState<{ originalUrl: string; isActive: boolean }>({
+  const [editForm, setEditForm] = useState<{
+    originalUrl: string;
+    isActive: boolean;
+  }>({
     originalUrl: "",
     isActive: true,
   });
@@ -47,11 +51,11 @@ export default function DashboardTable() {
         await navigator.share({
           title: "Share Short Link",
           text: "Check out my short link with a QR code!",
-          url: shareUrl, 
+          url: shareUrl,
         });
         toast.success("Short link shared successfully!");
-      } catch (err:any) {
-        if (err.name !== "AbortError") { 
+      } catch (err: any) {
+        if (err.name !== "AbortError") {
           toast.error("Failed to share short link");
           console.error("Share error:", err);
         }
@@ -59,7 +63,9 @@ export default function DashboardTable() {
     } else {
       try {
         await navigator.clipboard.writeText(shareUrl);
-        toast.info("Web Share not supported. Short link copied to clipboard instead.");
+        toast.info(
+          "Web Share not supported. Short link copied to clipboard instead."
+        );
       } catch (err) {
         toast.error("Failed to copy short link");
         console.error("Clipboard error:", err);
@@ -86,7 +92,7 @@ export default function DashboardTable() {
     const updatedData = {
       id,
       originalUrl: editForm.originalUrl,
-      isActive:  editForm.isActive === true,
+      isActive: editForm.isActive === true,
     };
     try {
       await dispatch(updateUrl(updatedData)).unwrap();
@@ -114,7 +120,11 @@ export default function DashboardTable() {
   return (
     <div>
       <ToastContainer />
-      {loading && <p className="text-center text-gray-400">Loading...</p>}
+      {loading && (
+        <div className="flex justify-center items-center ">
+          <Loader />
+        </div>
+      )}{" "}
       {error && <p className="text-center text-red-500">{error}</p>}
       <div className="bg-[#0B101B] overflow-x-auto rounded-lg overflow-hidden">
         <table className="w-full">
@@ -138,33 +148,40 @@ export default function DashboardTable() {
               </tr>
             ) : (
               urls.map((item) => (
-                <tr key={item.id} className="border-b bg-[#1A2333] border-gray-800">
+                <tr
+                  key={item.id}
+                  className="border-b bg-[#1A2333] border-gray-800"
+                >
                   <td className="p-4">
                     <div className="flex items-center gap-2">
                       {item.isActive ? (
                         <>
-                        <Link
-                          href={`/${item.shortCode}`}
-                          className="text-gray-300 hover:text-blue-500"
-                          target="_blank"
-                        >
-                          {`http://localhost:3000/${item.shortCode}`}
-                        </Link>
-                        <div className="p-3 bg-gray-800 hover:bg-gray-900 rounded-[20px]">
-                        <FaCopy onClick={() => handleCopy(item.shortCode)} />
-                      </div>
-                      </>
+                          <Link
+                            href={`/${item.shortCode}`}
+                            className="text-gray-300 hover:text-blue-500"
+                            target="_blank"
+                          >
+                            {`http://localhost:3000/${item.shortCode}`}
+                          </Link>
+                          <div className="p-3 bg-gray-800 hover:bg-gray-900 rounded-[20px]">
+                            <FaCopy
+                              onClick={() => handleCopy(item.shortCode)}
+                            />
+                          </div>
+                        </>
                       ) : (
                         <>
-                        <span className="text-gray-500 cursor-not-allowed" aria-disabled="true">
-                          {`http://localhost:3000/${item.shortCode}`}
-                        </span>
-                         <div >
-                         <FaCopy onClick={() => {}} />
-                       </div>
-                       </>
+                          <span
+                            className="text-gray-500 cursor-not-allowed"
+                            aria-disabled="true"
+                          >
+                            {`http://localhost:3000/${item.shortCode}`}
+                          </span>
+                          <div>
+                            <FaCopy onClick={() => {}} />
+                          </div>
+                        </>
                       )}
-                      
                     </div>
                   </td>
                   <td className="p-4">
@@ -173,42 +190,70 @@ export default function DashboardTable() {
                         type="text"
                         value={editForm.originalUrl}
                         onChange={(e) =>
-                          setEditForm({ ...editForm, originalUrl: e.target.value })
+                          setEditForm({
+                            ...editForm,
+                            originalUrl: e.target.value,
+                          })
                         }
                         className="p-2 bg-gray-800 text-white rounded w-full max-w-xs"
                       />
                     ) : (
                       <div className="flex items-center gap-2 max-w-xs truncate">
                         {getPlatformIcon(item.originalUrl)}
-                        <span className="text-gray-400">{item.originalUrl}</span>
+                        <span className="text-gray-400">
+                          {item.originalUrl}
+                        </span>
                       </div>
                     )}
                   </td>
                   <td className="p-4">
                     {item.qrCode ? (
                       <div className="flex items-center gap-2">
-                        <button
-                          onClick={() => handleShareQr(item.shortCode)} 
-                          className=" p-1"
-                          title="Share Short Link"
-                        > 
-                        <QRCodeSVG
-                        value={`http://localhost:3000/${item.shortCode}`}
-                        size={32} // Small size to match previous 8x8 image
-                        bgColor="#1A2333" // Match table background
-                        fgColor="#FFFFFF" // White QR code
-                      />                        </button>
+                        {item.isActive ? (
+                          <button
+                            onClick={() => handleShareQr(item.shortCode)}
+                            className=" p-1"
+                            title="Share Short Link"
+                          >
+                            <QRCodeSVG
+                              value={`http://localhost:3000/${item.shortCode}`}
+                              size={32}
+                              bgColor="#1A2333"
+                              fgColor="#FFFFFF"
+                            />{" "}
+                          </button>
+                        ) : (
+                          <button
+                            className=" p-1"
+                            title="Share Short Link"
+                            disabled
+                          >
+                            <QRCodeSVG
+                              value={`http://localhost:3000/${item.shortCode}`}
+                              size={32}
+                              bgColor="#1A2333"
+                              fgColor="#FFFFFF"
+                            />{" "}
+                          </button>
+                        )}
                       </div>
                     ) : (
                       <span className="text-gray-400">Generating...</span>
                     )}
                   </td>
-                  <td className="p-4 text-gray-300">{item.visits?.length || 0}</td>
+                  <td className="p-4 text-gray-300">
+                    {item.visits?.length || 0}
+                  </td>
                   <td className="p-4">
                     {editingId === item.id ? (
                       <select
                         value={editForm.isActive.toString()}
-                        onChange={(e) => setEditForm({ ...editForm, isActive: e.target.value==='true' })}
+                        onChange={(e) =>
+                          setEditForm({
+                            ...editForm,
+                            isActive: e.target.value === "true",
+                          })
+                        }
                         className="p-2 bg-gray-800 text-white rounded"
                       >
                         <option value="true">Active</option>

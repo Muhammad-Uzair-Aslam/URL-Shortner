@@ -14,13 +14,13 @@ export default function NotificationLoggedIn() {
   };
 
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center ">
       <div className="relative">
         <div
-          className="flex items-center w-auto gap-2 px-8 py-2 bg-[#1A1F2E] rounded-[30px] cursor-pointer"
+          className="flex items-center  px-8 py-2 mx-w-[300px] bg-[#1A1F2E] rounded-[30px] cursor-pointer"
           onClick={toggleDropdown}
         >
-          <div className="flex flex-col">
+          <div className="flex flex-col ">
             <span className="text-[10px]">Welcome</span>
             <span className="text-[16px]">
               {session?.user?.name || "loading..."}
@@ -58,7 +58,8 @@ export default function NotificationLoggedIn() {
           </div>
         )}
       </div>
-      <button className="p-3 bg-blue-500 rounded-[30px] relative">
+
+      <button className="p-3 ml-3 bg-blue-500 rounded-[30px] relative hidden md:block">
         <Bell size={30} />
         <span className="absolute top-1 right-1 w-2 h-2 bg-white rounded-full"></span>
       </button>
