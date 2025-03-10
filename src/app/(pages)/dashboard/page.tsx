@@ -8,15 +8,14 @@ export default function Page() {
     <div className="min-h-screen text-white">
       <div className="bg-[#0B101B]/50 border-gray-800 pb-5">
         <nav className="relative z-10 flex flex-col md:flex-row justify-between items-center p-4">
-          <div className="flex items-center md:hidden ">
-          <div className="">
-            <h1 className="text-[24px] font-[700] bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+          <div className="flex items-center justify-between md:hidden ">
+          
+            <h1 className="absolute top-5 left-5 text-[24px] font-[700] bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
               Linkly
             </h1>
-          </div>
-          <div >
+          <div className="-mr-64">
             <NotificationLoggedIn />
-          </div>
+            </div>
           </div>
           <div className="hidden md:block items-center gap-8 ">
             <h1 className="text-[34px] md:mr-5 lg:mr-10 font-[700] bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
