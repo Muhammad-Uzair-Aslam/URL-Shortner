@@ -15,6 +15,9 @@ export async function GET(req: Request) {
     });
     return NextResponse.json(urls);
   } catch (error) {
-    return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Something went wrong" },
+      { status: 500 }
+    );
   }
 }

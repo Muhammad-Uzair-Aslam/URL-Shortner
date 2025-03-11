@@ -1,80 +1,28 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import { FaCopy, FaLink, FaLinkSlash } from "react-icons/fa6";
-import { Twitter, Youtube, Chrome, Image } from "lucide-react";
-import { useAppDispatch, useAppSelector } from "@/redux/reduxHook/reduxHook";
-import { fetchTrialUrls } from "@/redux/slices/urlSlice";
+import { useTrialTable } from "@/hooks/useTrialTable";
 import Link from "next/link";
 import { QRCodeSVG } from "qrcode.react";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import Loader from "../loader/Loader";
 
 export default function TrialTable() {
-  const dispatch = useAppDispatch();
-  const { trialUrls, loading, error } = useAppSelector((state) => state.urls);
-
-  useEffect(() => {
-    dispatch(fetchTrialUrls());
-  }, [dispatch]);
-
-  const trialLimit = 5;
-  const remainingTrials = trialLimit - trialUrls.length;
-
-  const handleCopy = async (text: string) => {
-    try {
-      const urlToCopy = `http://localhost:3000/${text}`;
-      await navigator.clipboard.writeText(urlToCopy);
-      toast.success("URL copied to clipboard!");
-    } catch (err) {
-      toast.error("Failed to copy URL");
-      console.error("Clipboard error:", err);
-    }
-  };
-
-  const handleShareQr = async (shortCode: string) => {
-    const shareUrl = `http://localhost:3000/${shortCode}`;
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: "Share Short Link",
-          text: "Check out my trial short link with a QR code!",
-          url: shareUrl,
-        });
-        toast.success("Short link shared successfully!");
-      } catch (err: any) {
-        if (err.name !== "AbortError") {
-          toast.error("Failed to share short link");
-          console.error("Share error:", err);
-        }
-      }
-    } else {
-      try {
-        await navigator.clipboard.writeText(shareUrl);
-        toast.info(
-          "Web Share not supported. Short link copied to clipboard instead."
-        );
-      } catch (err) {
-        toast.error("Failed to copy short link");
-        console.error("Clipboard error:", err);
-      }
-    }
-  };
-
-  const getPlatformIcon = (url: string) => {
-    if (url.includes("twitter"))
-      return <Twitter className="text-blue-400" size={20} />;
-    if (url.includes("youtube"))
-      return <Youtube className="text-red-500" size={20} />;
-    if (url.includes("chrome"))
-      return <Chrome className="text-blue-500" size={20} />;
-    return <Image className="text-purple-500" size={20} />;
-  };
+  const {
+    trialUrls,
+    loading,
+    error,
+    remainingTrials,
+    handleCopy,
+    handleShareQr,
+    getFaviconUrl,
+  } = useTrialTable();
 
   return (
     <div className="overflow-x-auto">
       <ToastContainer />
-      <div className="text-sm text-gray-400  text-center">
+      <div className="text-sm text-gray-400 text-center">
         You can create{" "}
         <span className="text-pink-500">
           {remainingTrials > 0 ? remainingTrials : 0}
@@ -87,7 +35,7 @@ export default function TrialTable() {
       </div>
       {error && <p className="text-center text-red-500 mt-2">{error}</p>}
       {loading && (
-        <div className="flex justify-center items-center ">
+        <div className="flex justify-center items-center">
           <Loader />
         </div>
       )}
@@ -103,30 +51,30 @@ export default function TrialTable() {
           </tr>
         </thead>
         <tbody>
-          {trialUrls.length === 0 ? (
+          {trialUrls?.length === 0 ? (
             <tr>
               <td colSpan={6} className="p-4 text-center text-gray-400">
                 No URLs found
               </td>
             </tr>
           ) : (
-            trialUrls.map((item) => (
+            trialUrls?.map((item) => (
               <tr
-                key={item.id}
+                key={item?.id || ""}
                 className="bg-[#181E29] text-center mx-auto border-t border-gray-800"
               >
                 <td className="p-4">
                   <div className="flex items-center gap-2">
                     <Link
-                      href={`/${item.shortCode}`}
+                      href={`/${item?.shortCode || ""}`}
                       className="text-gray-300 hover:text-blue-500"
                       target="_blank"
                     >
-                      {`http://localhost:3000/${item.shortCode}`}
+                      {`http://localhost:3000/${item?.shortCode || ""}`}
                     </Link>
                     <button
                       className="p-3 bg-gray-800 hover:bg-gray-900 rounded-[20px]"
-                      onClick={() => handleCopy(item.shortCode)}
+                      onClick={() => handleCopy(item?.shortCode || "")}
                     >
                       <FaCopy />
                     </button>
@@ -134,37 +82,44 @@ export default function TrialTable() {
                 </td>
                 <td className="p-4">
                   <div className="flex items-center gap-2">
-                    {getPlatformIcon(item.originalUrl)}
+                    <img
+                      src={getFaviconUrl(item?.originalUrl || "")}
+                      alt="Favicon"
+                      className="w-5 h-5"
+                      onError={(e) =>
+                        (e.currentTarget.src = "/fallback-icon.png")
+                      }
+                    />
                     <span className="truncate max-w-xs">
-                      {item.originalUrl}
+                      {item?.originalUrl || ""}
                     </span>
                   </div>
                 </td>
                 <td className="p-4">
                   <div className="flex items-center gap-2">
                     <button
-                      onClick={() => handleShareQr(item.shortCode)}
+                      onClick={() => handleShareQr(item?.shortCode || "")}
                       className="p-1"
                       title="Share Short Link"
                     >
                       <QRCodeSVG
-                        value={`http://localhost:3000/${item.shortCode}`} // Generate QR for short URL
+                        value={`http://localhost:3000/${item?.shortCode || ""}`}
                         size={32}
-                        bgColor="#181E29" // Match table background
-                        fgColor="#FFFFFF" // White QR code
+                        bgColor="#181E29"
+                        fgColor="#FFFFFF"
                       />
                     </button>
                   </div>
                 </td>
-                <td className="p-4">{item?.visits?.length}</td>
+                <td className="p-4">{item?.visits?.length || 0}</td>
                 <td className="p-4">
                   <span
                     className={`flex justify-center items-center px-2 py-1 rounded-full text-[14px] ${
-                      item.isActive ? "text-[#1EB036]" : "text-[#B0901E]"
+                      item?.isActive ? "text-[#1EB036]" : "text-[#B0901E]"
                     }`}
                   >
-                    {item.isActive ? "Active" : "Inactive"}
-                    {item.isActive ? (
+                    {item?.isActive ? "Active" : "Inactive"}
+                    {item?.isActive ? (
                       <div className="mx-2 p-3 rounded-[20px] bg-[#1EB03624] text-white">
                         <FaLink />
                       </div>
@@ -176,7 +131,7 @@ export default function TrialTable() {
                   </span>
                 </td>
                 <td className="p-4 text-gray-400">
-                  {new Date(item.createdAt).toLocaleDateString()}
+                  {new Date(item?.createdAt || "").toLocaleDateString()}
                 </td>
               </tr>
             ))

@@ -1,15 +1,11 @@
 "use client";
 import { SessionProvider } from "next-auth/react";
-import React, { useEffect } from "react";
+import React from "react";
 
-export default function NextAuthSessionProvider({ children }: {
+export default function NextAuthSessionProvider({
+  children,
+}: {
   children: React.ReactNode;
 }) {
-  // useEffect(() => {
-  // }, []);
-  return (
-    <SessionProvider>
-      {children}
-    </SessionProvider>
-  );
+  return <SessionProvider>{children}</SessionProvider>;
 }

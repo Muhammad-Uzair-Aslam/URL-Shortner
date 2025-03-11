@@ -12,7 +12,10 @@ export default function ResetPasswordPage() {
         </h1>
       </div>
       <div className="relative z-10 w-full px-4 flex flex-col items-center">
-        <CustomText title="Reset your password" description="Enter your new password below to reset your password."/>
+        <CustomText
+          title="Reset your password"
+          description="Enter your new password below to reset your password."
+        />
         <ResetPasswordForm />
       </div>
       <div className="text-gray-400 text-sm z-10 mb-5"></div>

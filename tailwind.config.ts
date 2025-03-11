@@ -8,6 +8,15 @@ export default {
   ],
   theme: {
     extend: {
+      animation: {
+        fade458: "fade458 1s linear infinite",
+      },
+      keyframes: {
+        fade458: {
+          from: { opacity: "1" },
+          to: { opacity: "0.25" },
+        },
+      },
       colors: {
         primary: '#1E1E2F',
         secondary: '#2C2C3A',

@@ -17,7 +17,6 @@ export async function GET(
     const loggedInUrl = await prisma.url.findUnique({
       where: { shortCode: normalizedShortCode },
     });
-    console.log("Logged-in URL:", loggedInUrl);
 
     if (loggedInUrl) {
       await prisma.urlVisit.create({
@@ -26,13 +25,12 @@ export async function GET(
       const redirectUrl = loggedInUrl.originalUrl.startsWith("http")
         ? loggedInUrl.originalUrl
         : `https://${loggedInUrl.originalUrl}`;
-      console.log("Redirecting to:", redirectUrl);
-      return NextResponse.redirect(redirectUrl);
+
+        return NextResponse.redirect(redirectUrl);
     }
     const trialUrl = await prisma.trialUrl.findUnique({
       where: { shortCode: normalizedShortCode },
     });
-    console.log("Trial URL:", trialUrl);
 
     if (trialUrl) {
       await prisma.trialUrlVisit.create({
@@ -41,13 +39,12 @@ export async function GET(
       const redirectUrl = trialUrl.originalUrl.startsWith("http")
         ? trialUrl.originalUrl
         : `https://${trialUrl.originalUrl}`;
-      console.log("Redirecting to:", redirectUrl);
+
       return NextResponse.redirect(redirectUrl);
     }
 
     return NextResponse.json({ error: "URL not found" }, { status: 404 });
   } catch (error) {
-    console.error("Error in /[shortCode]:", error);
     return NextResponse.json(
       { error: "Something went wrong" },
       { status: 500 }

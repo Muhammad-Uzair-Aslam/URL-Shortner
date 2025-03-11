@@ -10,13 +10,19 @@ export async function GET(req: Request) {
   }
 
   try {
-    const existingUrl = await prisma.url.findUnique({ where: { shortCode: slug } });
-    const existingTrialUrl = await prisma.trialUrl.findUnique({ where: { shortCode: slug } });
+    const existingUrl = await prisma.url.findUnique({
+      where: { shortCode: slug },
+    });
+    const existingTrialUrl = await prisma.trialUrl.findUnique({
+      where: { shortCode: slug },
+    });
 
     const isAvailable = !existingUrl && !existingTrialUrl;
     return NextResponse.json({ isAvailable }, { status: 200 });
   } catch (error) {
-    console.error("Error checking slug:", error);
-    return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Something went wrong" },
+      { status: 500 }
+    );
   }
 }

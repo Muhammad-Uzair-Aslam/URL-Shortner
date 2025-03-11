@@ -1,25 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
-export interface Url {
-  id: string;
-  originalUrl: string;
-  shortCode: string;
-  userId?: string;
-  visits: { id: string; visitedAt: string }[];
-  isActive: boolean;
-  qrCode?: string | undefined;
-  createdAt: string;
-}
-
-interface UrlState {
-  urls: Url[];
-  trialUrls: Url[];
-  loading: boolean;
-  error: string | null;
-  shortenedUrl: string | null;
-  isSlugAvailable: boolean | null;
-}
-
+import {UrlState} from '@/types/types'
 const initialState: UrlState = {
   urls: [],
   trialUrls: [],
@@ -29,7 +9,6 @@ const initialState: UrlState = {
   isSlugAvailable: null,
 };
 
-// Thunk to shorten URL
 export const shortenUrl = createAsyncThunk(
   "urls/shortenUrl",
   async (
@@ -47,14 +26,13 @@ export const shortenUrl = createAsyncThunk(
       if (!response.ok) {
         throw new Error(data.error || "Failed to shorten URL");
       }
-      return { shortUrl: data.shortUrl, url: data.url }; // Expecting shortUrl and url
+      return { shortUrl: data.shortUrl, url: data.url };
     } catch (error: any) {
       return rejectWithValue(error.message || "Something went wrong");
     }
   }
 );
 
-// Thunk to check slug availability
 export const checkSlugAvailability = createAsyncThunk(
   "urls/checkSlugAvailability",
   async (slug: string, { rejectWithValue }) => {
@@ -77,7 +55,11 @@ export const checkSlugAvailability = createAsyncThunk(
 export const updateUrl = createAsyncThunk(
   "url/updateUrl",
   async (
-    { id, originalUrl, isActive }: { id: string; originalUrl: string; isActive: boolean },
+    {
+      id,
+      originalUrl,
+      isActive,
+    }: { id: string; originalUrl: string; isActive: boolean },
     { rejectWithValue }
   ) => {
     try {
@@ -89,12 +71,10 @@ export const updateUrl = createAsyncThunk(
       });
       const data = await response.json();
       if (!response.ok) {
-        console.error("Update API error:", data);
         return rejectWithValue(data.message || "Failed to update URL");
       }
-      return data; // Should return the updated URL
+      return data;
     } catch (error: any) {
-      console.error("Network error in updateUrl:", error);
       return rejectWithValue(error.message || "Network error occurred");
     }
   }
@@ -110,39 +90,49 @@ export const deleteUrl = createAsyncThunk(
         body: JSON.stringify({ id }),
         credentials: "include",
       });
-      const data = await response.json().catch(() => ({})); // Fallback to empty object if JSON parsing fails
+      const data = await response.json().catch(() => ({}));
       if (!response.ok) {
         return rejectWithValue(data.message || "Failed to delete URL");
       }
       return { id };
     } catch (error: any) {
-      console.error("Fetch error in deleteUrl:", error);
       return rejectWithValue(error.message || "Network error occurred");
     }
   }
 );
 
-export const fetchTrialUrls = createAsyncThunk("url/fetchTrialUrls", async (_, { rejectWithValue }) => {
-  const response = await fetch("/api/trialUrls", { credentials: "include" });
-  const data = await response.json();
-  if (!response.ok) return rejectWithValue(data.error || "Failed to fetch trial URLs");
-  return data;
-});
+export const fetchTrialUrls = createAsyncThunk(
+  "url/fetchTrialUrls",
+  async (_, { rejectWithValue }) => {
+    const response = await fetch("/api/trialUrls", { credentials: "include" });
+    const data = await response.json();
+    if (!response.ok)
+      return rejectWithValue(data.error || "Failed to fetch trial URLs");
+    return data;
+  }
+);
 
-export const fetchUrls = createAsyncThunk("url/fetchUrls", async (_, { rejectWithValue }) => {
-  const response = await fetch("/api/urls", { credentials: "include" });
-  const data = await response.json();
-  if (!response.ok) return rejectWithValue(data.error || "Failed to fetch URLs");
-  return data;
-});
+export const fetchUrls = createAsyncThunk(
+  "url/fetchUrls",
+  async (_, { rejectWithValue }) => {
+    const response = await fetch("/api/urls", { credentials: "include" });
+    const data = await response.json();
+    if (!response.ok)
+      return rejectWithValue(data.error || "Failed to fetch URLs");
+    return data;
+  }
+);
 
 export const generateQrCode = createAsyncThunk(
   "url/generateQrCode",
   async (shortCode: string, { rejectWithValue }) => {
     try {
-      const response = await fetch(`/api/qr/${shortCode}`, { credentials: "include" });
+      const response = await fetch(`/api/qr/${shortCode}`, {
+        credentials: "include",
+      });
       const data = await response.json();
-      if (!response.ok) return rejectWithValue(data.error || "Failed to generate QR code");
+      if (!response.ok)
+        return rejectWithValue(data.error || "Failed to generate QR code");
       return { shortCode, qrCode: data.qrCode };
     } catch (error: any) {
       return rejectWithValue(error.message || "Something went wrong");
@@ -162,7 +152,6 @@ const urlSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Shorten URL
       .addCase(shortenUrl.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -185,7 +174,6 @@ const urlSlice = createSlice({
         state.error = action.payload as string;
       })
 
-      // Check Slug Availability
       .addCase(checkSlugAvailability.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -200,8 +188,6 @@ const urlSlice = createSlice({
         state.error = action.payload as string;
         state.isSlugAvailable = false;
       })
-
-      // Fetch Trial URLs
       .addCase(fetchTrialUrls.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -214,8 +200,6 @@ const urlSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       })
-
-      // Fetch URLs
       .addCase(fetchUrls.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -228,8 +212,6 @@ const urlSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       })
-
-      // Delete URL
       .addCase(deleteUrl.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -242,10 +224,10 @@ const urlSlice = createSlice({
       })
       .addCase(deleteUrl.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload ? String(action.payload) : "Unknown error occurred";
+        state.error = action.payload
+          ? String(action.payload)
+          : "Unknown error occurred";
       })
-
-      // Update URL
       .addCase(updateUrl.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -262,14 +244,17 @@ const urlSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       })
-
-      // Generate QR Code
       .addCase(generateQrCode.fulfilled, (state, action) => {
         const { shortCode, qrCode } = action.payload;
-        const urlIndex = state.urls.findIndex((url) => url.shortCode === shortCode);
-        const trialUrlIndex = state.trialUrls.findIndex((url) => url.shortCode === shortCode);
+        const urlIndex = state.urls.findIndex(
+          (url) => url.shortCode === shortCode
+        );
+        const trialUrlIndex = state.trialUrls.findIndex(
+          (url) => url.shortCode === shortCode
+        );
         if (urlIndex !== -1) state.urls[urlIndex].qrCode = qrCode;
-        if (trialUrlIndex !== -1) state.trialUrls[trialUrlIndex].qrCode = qrCode;
+        if (trialUrlIndex !== -1)
+          state.trialUrls[trialUrlIndex].qrCode = qrCode;
       })
       .addCase(generateQrCode.rejected, (state, action) => {
         state.error = action.payload as string;

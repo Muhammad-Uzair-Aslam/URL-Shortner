@@ -13,7 +13,12 @@ export async function PATCH(req: Request) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    if (!id || typeof id !== "string" || !originalUrl || typeof originalUrl !== "string") {
+    if (
+      !id ||
+      typeof id !== "string" ||
+      !originalUrl ||
+      typeof originalUrl !== "string"
+    ) {
       return NextResponse.json(
         { message: "Invalid or missing URL ID or original URL" },
         { status: 400 }
@@ -23,17 +28,14 @@ export async function PATCH(req: Request) {
       where: { id, userId: session.user.id },
       data: {
         originalUrl,
-        isActive: typeof isActive === "boolean" ? isActive : Boolean(isActive), 
+        isActive: typeof isActive === "boolean" ? isActive : Boolean(isActive),
       },
-      include: { visits: true }, 
+      include: { visits: true },
     });
     return NextResponse.json(updatedUrl, { status: 200 });
   } catch (error: any) {
     if (error.code === "P2025") {
-      return NextResponse.json(
-        { message: "URL not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ message: "URL not found" }, { status: 404 });
     }
     return NextResponse.json(
       {

@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 
 declare module "next-auth" {
-  interface Session {
+  type Session ={
     user: {
       id: string;
       name?: string | null;
@@ -10,7 +10,7 @@ declare module "next-auth" {
     };
   }
 
-  interface User {
+  type User ={
     id: string;
     name?: string | null;
     email: string;
@@ -18,7 +18,7 @@ declare module "next-auth" {
 }
 
 declare module "next-auth/jwt" {
-  interface JWT {
+  type JWT ={
     id: string;
     email: string;
     name?: string | null;

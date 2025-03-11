@@ -1,39 +1,15 @@
 "use client";
-import React, { useState, useEffect } from "react";
+
+import React from "react";
 import { Button } from "../button/Button";
 import CustomInput from "../customInput/CustomInput";
-import { useSession } from "next-auth/react";
-import { useAppDispatch, useAppSelector } from "@/redux/reduxHook/reduxHook";
-import { updateProfile } from "@/redux/slices/profileSlice";
-import { toast } from "react-toastify";
+import { useProfileForm } from "@/hooks/useProfileForm";
 import Loader from "../loader/Loader";
 import Link from "next/link";
 
 export default function ProfileForm() {
-  const { data: session } = useSession();
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const dispatch = useAppDispatch();
-  const { loading, error, message } = useAppSelector((state) => state.profile);
-  useEffect(() => {
-    setEmail(session?.user?.email ?? "");
-    setName(session?.user?.name ?? "");
-  }, [session]);
+  const { email, name, setName, loading, error, message, updateHandler } = useProfileForm();
 
-  const updateHandler = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      await dispatch(
-        updateProfile({
-          email: session?.user?.email!,
-          name,
-        })
-      ).unwrap();
-      toast.success(message || "Profile updated successfully");
-    } catch (err) {
-      toast.error(error);
-    }
-  };
   return (
     <form
       onSubmit={updateHandler}
@@ -43,7 +19,7 @@ export default function ProfileForm() {
         type="email"
         placeholder="Email"
         width="w-full"
-        value={email}
+        value={email || ""}
         disabled
       />
       <CustomInput
@@ -51,15 +27,15 @@ export default function ProfileForm() {
         type="text"
         placeholder="Name"
         width="w-full"
-        value={name}
+        value={name || ""}
       />
       {loading && <Loader />}
       {error && <p className="text-red-500">{error}</p>}
       {message && <p className="text-green-500">{message}</p>}
       <Button title="Update Profile" Type="submit" />
       <div>
-        <Link href={'/password/change'}>
-        <Button title='Change Password'/>
+        <Link href="/password/change">
+          <Button title="Change Password" />
         </Link>
       </div>
     </form>

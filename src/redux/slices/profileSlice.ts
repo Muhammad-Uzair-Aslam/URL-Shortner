@@ -1,20 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
-export type ProfileProps = {
-  loading: boolean;
-  error: string | null;
-  message: string | null;
-};
-
+import { ProfileProps,updateProfilePayload } from "@/types/types";
 const initialState: ProfileProps = {
   loading: false,
   error: null,
   message: null,
-};
-
-export type updateProfilePayload = {
-  name: string;
-  email: string;
 };
 
 export const updateProfile = createAsyncThunk(

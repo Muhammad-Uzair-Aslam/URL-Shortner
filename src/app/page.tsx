@@ -29,11 +29,11 @@ export default function TrialPage() {
           title="Shorten Your Loooong Links :)"
           description="Linkly is an efficient and easy-to-use URL shortening service that streamlines your online experience."
         />
-        <div className="max-w-xl mx-auto mb-8">
+        <div className="max-w-[100%] md:max-w-[80%] flex flex-col justify-center items-center mx-auto mb-8">
           <CustomSlugInput
             title="Shorten Now!"
             placeholder="Enter the link here"
-            fetchAction="trial" 
+            fetchAction="trial"
           />
           <AutoPasteClipboard />
         </div>
@@ -42,4 +42,3 @@ export default function TrialPage() {
     </div>
   );
 }
-

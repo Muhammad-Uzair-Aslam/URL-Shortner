@@ -17,9 +17,11 @@ export function useUrlShortener() {
   const [customSlug, setCustomSlug] = useState("");
   const { data: session, status } = useSession();
   const dispatch = useAppDispatch();
-  const { shortenedUrl, loading, error, isSlugAvailable } = useAppSelector((state) => state.urls);
+  const { shortenedUrl, loading, error, isSlugAvailable } = useAppSelector(
+    (state) => state?.urls
+  );
 
-  const isValidUrl = (input:string) => {
+  const isValidUrl = (input: string) => {
     try {
       const urlObj = new URL(input);
       return !!urlObj?.protocol && !!urlObj?.hostname;
@@ -43,15 +45,25 @@ export function useUrlShortener() {
     }
     if (session && useCustomSlug && customSlug) {
       const checkResult = await dispatch(checkSlugAvailability(customSlug));
-      if (!checkSlugAvailability?.fulfilled?.match(checkResult) || !checkResult?.payload) {
-        toast.error(checkResult?.payload ? "This slug is already taken. Try another." : "Error checking slug");
+      if (
+        !checkSlugAvailability?.fulfilled?.match(checkResult) ||
+        !checkResult?.payload
+      ) {
+        toast.error(
+          checkResult?.payload
+            ? "This slug is already taken. Try another."
+            : "Error checking slug"
+        );
         return;
       }
       toast.success("Slug is available! Shortening now...");
     }
 
     const result = await dispatch(
-      shortenUrl({ originalUrl: url, customSlug: session && customSlug ? customSlug : undefined })
+      shortenUrl({
+        originalUrl: url,
+        customSlug: session && customSlug ? customSlug : undefined,
+      })
     );
 
     if (shortenUrl?.fulfilled?.match(result)) {

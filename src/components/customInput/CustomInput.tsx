@@ -1,21 +1,11 @@
 import React from "react";
-
-interface InputFieldProps {
-  type: string;
-  placeholder: string;
-  width?: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  value?: string | null | undefined;
-  disabled?: boolean;
-}
-
+import { InputFieldProps } from "@/types/types";
 const CustomInput: React.FC<InputFieldProps> = ({
   type,
   value,
   placeholder,
   width = "900px",
   onChange,
-  disabled
 }) => {
   return (
     <input

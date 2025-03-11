@@ -57,12 +57,18 @@ export default function EditForm() {
                 placeholder="Enter Custom Slug (Logged-in users only)"
                 className="w-full bg-transparent border-none focus:outline-none text-white"
                 value={customSlug}
-                onChange={(e) => setCustomSlug(e.target.value.trim().toLowerCase())}
+                onChange={(e) =>
+                  setCustomSlug(e.target.value.trim().toLowerCase())
+                }
                 disabled={loading || status !== "authenticated"}
               />
             </div>
             <div className="hidden md:block">
-              <Button title="Generate" clickHandler={() => handleAction(true)} disabled={loading} />
+              <Button
+                title="Generate"
+                clickHandler={() => handleAction(true)}
+                disabled={loading}
+              />
             </div>
             <div className="block md:hidden">
               <button
@@ -77,7 +83,11 @@ export default function EditForm() {
             </div>
           </div>
           <div className="flex justify-center pt-4">
-            <Button title="Shorten Now!" clickHandler={() => handleAction()} disabled={loading} />
+            <Button
+              title="Shorten Now!"
+              clickHandler={() => handleAction()}
+              disabled={loading}
+            />
           </div>
         </div>
       </form>

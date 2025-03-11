@@ -14,11 +14,13 @@ export default function page() {
         </h1>
       </div>
       <div className="relative z-10 w-full px-4 flex flex-col items-center">
-        <CustomText title="Change Password" description="Enter your old and new password below to change your password."/>
-        <ChangePasswordForm/>
+        <CustomText
+          title="Change Password"
+          description="Enter your old and new password below to change your password."
+        />
+        <ChangePasswordForm />
       </div>
-      <div className="text-gray-400 text-sm z-10 mb-5">  
-      </div>
+      <div className="text-gray-400 text-sm z-10 mb-5"></div>
     </main>
   );
 }

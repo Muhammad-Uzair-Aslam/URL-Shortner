@@ -15,8 +15,11 @@ export default function ForgotPasswordPage() {
         </h1>
       </div>
       <div className="relative z-10 w-full px-4 flex flex-col items-center">
-        <CustomText title="Forget password" description="Enter your email address and we’ll send you a link to reset your
-            password."/>
+        <CustomText
+          title="Forget password"
+          description="Enter your email address and we’ll send you a link to reset your
+            password."
+        />
         <ForgetPasswordForm />
       </div>
       <div className="text-gray-400 text-sm z-10 mb-5">

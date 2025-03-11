@@ -13,7 +13,10 @@ export default function Page() {
         </h1>
       </div>
       <div className="relative z-10 w-full px-4 flex flex-col items-center">
-        <CustomText title="Shorten Your Loooong Links :)" description="Linkly is an efficient and easy-to-use URL shortening service that streamlines your online experience."/>
+        <CustomText
+          title="Shorten Your Loooong Links :)"
+          description="Linkly is an efficient and easy-to-use URL shortening service that streamlines your online experience."
+        />
         <SignUpForm />
       </div>
       <div className="text-gray-400 text-sm z-10 mb-5">

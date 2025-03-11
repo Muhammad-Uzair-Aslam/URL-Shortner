@@ -2,19 +2,28 @@ import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import QRCode from "qrcode";
 
-export async function GET(req: Request, { params }: { params: { shortCode: string } }) {
+export async function GET(
+  req: Request,
+  { params }: { params: { shortCode: string } }
+) {
   try {
     const { shortCode } = params;
     const normalizedShortCode = shortCode.replace(/\/+$/, "").toLowerCase();
 
-    const url = await prisma.url.findUnique({ where: { shortCode: normalizedShortCode } });
-    const trialUrl = await prisma.trialUrl.findUnique({ where: { shortCode: normalizedShortCode } });
+    const url = await prisma.url.findUnique({
+      where: { shortCode: normalizedShortCode },
+    });
+    const trialUrl = await prisma.trialUrl.findUnique({
+      where: { shortCode: normalizedShortCode },
+    });
 
     if (!url && !trialUrl) {
       return NextResponse.json({ error: "URL not found" }, { status: 404 });
     }
 
-    const qrCode = await QRCode.toDataURL(`http://localhost:3000/${normalizedShortCode}`); // Changed to localhost
+    const qrCode = await QRCode.toDataURL(
+      `http://localhost:3000/${normalizedShortCode}`
+    ); 
     if (url) {
       await prisma.url.update({
         where: { shortCode: normalizedShortCode },
@@ -28,7 +37,9 @@ export async function GET(req: Request, { params }: { params: { shortCode: strin
     }
     return NextResponse.json({ qrCode });
   } catch (error) {
-    console.error("Error in /api/qr:", error);
-    return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Something went wrong" },
+      { status: 500 }
+    );
   }
 }

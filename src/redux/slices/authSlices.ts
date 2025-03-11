@@ -1,33 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
-interface SignupPayload {
-  name: string;
-  email: string;
-  password: string;
-}
-interface ForgotPasswordPayload {
-  email: string;
-}
-interface ResetPasswordPayload {
-  token: string;
-  newPassword: string;
-}
-interface ChangePasswordPayload {
-  email: string;
-  oldPassword: string;
-  newPassword: string;
-}
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  emailVerified: Date | null;
-  image: string | null;
-  password: string;
-  role: "USER" | "ADMIN" | string;
-  createdAt: string;
-  updatedAt: string;
-}
+import { SignupPayload ,ForgotPasswordPayload,ResetPasswordPayload,ChangePasswordPayload,User,AuthState} from "@/types/types";
 
 export const signupUser = createAsyncThunk(
   "auth/signupUser",
@@ -79,7 +51,10 @@ export const resetPassword = createAsyncThunk(
 
 export const changePassword = createAsyncThunk(
   "auth/changePassword",
-  async ({ email, oldPassword, newPassword }: ChangePasswordPayload, { rejectWithValue }) => {
+  async (
+    { email, oldPassword, newPassword }: ChangePasswordPayload,
+    { rejectWithValue }
+  ) => {
     const response = await fetch("/api/password/change", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -92,13 +67,6 @@ export const changePassword = createAsyncThunk(
     return data.message;
   }
 );
-
-interface AuthState {
-  loading: boolean;
-  user: User | null;
-  error: string | null;
-  resetMessage: string | null;
-}
 
 const initialState: AuthState = {
   loading: false,
