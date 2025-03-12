@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
-import { useAppDispatch, useAppSelector } from "@/redux/reduxHook/reduxHook";
+import { useAppDispatch, useAppSelector } from "@/hooks/useReduxHook";
 import {
   shortenUrl,
   checkSlugAvailability,

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useAppDispatch, useAppSelector } from "@/redux/reduxHook/reduxHook";
+import { useAppDispatch, useAppSelector } from "@/hooks/useReduxHook";
 import { toast } from "react-toastify";
 import { changePassword } from "@/redux/slices/authSlices";
 

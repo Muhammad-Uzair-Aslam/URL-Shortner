@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useAppDispatch, useAppSelector } from "@/redux/reduxHook/reduxHook";
+import { useAppDispatch, useAppSelector } from "@/hooks/useReduxHook";
 import { resetPassword } from "@/redux/slices/authSlices";
 import { toast } from "react-toastify";
 

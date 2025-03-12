@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { useAppDispatch, useAppSelector } from "@/redux/reduxHook/reduxHook";
+import { useAppDispatch, useAppSelector } from "@/hooks/useReduxHook";
 import { signupUser } from "@/redux/slices/authSlices";
 
 export function useSignUpForm() {

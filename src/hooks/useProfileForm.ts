@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { useAppDispatch, useAppSelector } from "@/redux/reduxHook/reduxHook";
+import { useAppDispatch, useAppSelector } from "@/hooks/useReduxHook";
 import { updateProfile } from "@/redux/slices/profileSlice";
 import { toast } from "react-toastify";
 

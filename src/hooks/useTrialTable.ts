@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@/redux/reduxHook/reduxHook";
+import { useAppDispatch, useAppSelector } from "@/hooks/useReduxHook";
 import { fetchTrialUrls } from "@/redux/slices/urlSlice";
 import { toast } from "react-toastify";
 

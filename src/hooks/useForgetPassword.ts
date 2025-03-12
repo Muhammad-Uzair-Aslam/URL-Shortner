@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useAppDispatch, useAppSelector } from "@/redux/reduxHook/reduxHook";
+import { useAppDispatch, useAppSelector } from "@/hooks/useReduxHook";
 import { toast } from "react-toastify";
 import { forgotPassword } from "@/redux/slices/authSlices";
 

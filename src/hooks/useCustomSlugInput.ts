@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useAppDispatch } from "@/redux/reduxHook/reduxHook";
+import { useAppDispatch } from "@/hooks/useReduxHook";
 import {
   shortenUrl,
   fetchTrialUrls,
