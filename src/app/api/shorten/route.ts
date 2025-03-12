@@ -52,7 +52,7 @@ export async function POST(req: Request) {
 
       return NextResponse.json(
         {
-          shortUrl: `http://localhost:3000/${shortCode}`,
+          shortUrl: `${process.env.NEXT_PUBLIC_SITE_URL+"/"+shortCode}`,
           url: shortUrl,
           message: "URL shortened successfully",
         },
@@ -83,7 +83,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json(
       {
-        shortUrl: `http://localhost:3000/${shortCode}`,
+        shortUrl: `${process.env.NEXT_PUBLIC_SITE_URL+"/"+shortCode}`,
         url: shortUrl,
         message: "URL shortened successfully",
       },

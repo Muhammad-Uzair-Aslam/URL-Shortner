@@ -18,7 +18,7 @@ export function useTrialTable() {
 
   const handleCopy = async (text: string) => {
     try {
-      const urlToCopy = `http://localhost:3000/${text || ""}`;
+      const urlToCopy = `${process.env.NEXT_PUBLIC_SITE_URL}/${text || ""}`;
       await navigator?.clipboard?.writeText(urlToCopy);
       toast.success("URL copied to clipboard!");
     } catch {
@@ -27,7 +27,7 @@ export function useTrialTable() {
   };
 
   const handleShareQr = async (shortCode: string) => {
-    const shareUrl = `http://localhost:3000/${shortCode || ""}`;
+    const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${shortCode || ""}`;
     if (navigator?.share) {
       try {
         await navigator.share({
