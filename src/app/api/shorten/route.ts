@@ -1,9 +1,9 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { AuthOptions } from "@/app/api/auth/[...nextauth]/route";
 import { nanoid } from "nanoid";
 import { cookies } from "next/headers";
+import { authOptions } from "@/lib/auth";
 
 export async function POST(req: Request) {
   try {
@@ -16,7 +16,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const session = await getServerSession(AuthOptions);
+    const session = await getServerSession(authOptions);
     const cookieStore =await cookies();
     const sessionId = cookieStore.get("trialSessionId")?.value || nanoid();
 

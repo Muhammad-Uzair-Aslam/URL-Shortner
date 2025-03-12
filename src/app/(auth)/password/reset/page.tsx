@@ -2,6 +2,7 @@ import CustomText from "@/components/customText/CustomText";
 import ResetPasswordForm from "@/components/resetPasswordForm/ResetPasswordForm";
 import { ToastContainer } from "react-toastify";
 import { THEME_COLORS } from "@/constants/constants";
+import { Suspense } from "react";
 
 export default function ResetPasswordPage() {
   return (
@@ -17,7 +18,9 @@ export default function ResetPasswordPage() {
           title="Reset your password"
           description="Enter your new password below to reset your password."
         />
-        <ResetPasswordForm />
+        <Suspense fallback={<div>Loading...</div>}>
+          <ResetPasswordForm />
+        </Suspense>
       </div>
       <div className={`text-gray-400 text-sm z-10 mb-5`}></div>
     </main>

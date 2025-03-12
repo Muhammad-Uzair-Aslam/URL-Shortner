@@ -4,10 +4,9 @@ import QRCode from "qrcode";
 
 export async function GET(
   req: Request,
-  { params }: { params: { shortCode: string } }
-) {
+  { params }: { params: Promise<{ shortCode: string }> }) {
   try {
-    const { shortCode } = params;
+    const  shortCode =  (await params).shortCode;
     const normalizedShortCode = shortCode.replace(/\/+$/, "").toLowerCase();
 
     const url = await prisma.url.findUnique({

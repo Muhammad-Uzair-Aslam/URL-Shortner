@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { getServerSession } from "next-auth";
-import { AuthOptions } from "../../auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 
 export async function POST(req: Request) {
   const { email, oldPassword, newPassword } = await req.json();
@@ -15,7 +15,7 @@ export async function POST(req: Request) {
   }
 
   try {
-    const session = await getServerSession(AuthOptions);
+    const session = await getServerSession(authOptions);
     if (!session || !session.user || session.user.email !== email) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }

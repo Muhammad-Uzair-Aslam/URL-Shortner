@@ -1,15 +1,11 @@
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
-interface Params {
-  shortCode: string;
-}
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: Params } 
-) {
+  { params }: { params: Promise<{ shortCode: string }> }) {
   try {
-    const { shortCode } = params;
+    const shortCode = (await params).shortCode;
     const normalizedShortCode = shortCode.replace(/\/+$/, "").toLowerCase();
 
     if (!normalizedShortCode) {
@@ -25,11 +21,11 @@ export async function GET(
 
     if (loggedInUrl) {
       await prisma.urlVisit.create({
-        data: { urlId: loggedInUrl?.id, visitedAt: new Date() },
+        data: { urlId: loggedInUrl.id, visitedAt: new Date() },
       });
-      const redirectUrl = loggedInUrl?.originalUrl?.startsWith("http")
-        ? loggedInUrl?.originalUrl
-        : `https://${loggedInUrl?.originalUrl}`;
+      const redirectUrl = loggedInUrl.originalUrl.startsWith("http")
+        ? loggedInUrl.originalUrl
+        : `https://${loggedInUrl.originalUrl}`;
       return NextResponse.redirect(redirectUrl);
     }
 
@@ -39,11 +35,11 @@ export async function GET(
 
     if (trialUrl) {
       await prisma.trialUrlVisit.create({
-        data: { trialUrlId: trialUrl?.id, visitedAt: new Date() },
+        data: { trialUrlId: trialUrl.id, visitedAt: new Date() },
       });
-      const redirectUrl = trialUrl?.originalUrl?.startsWith("http")
-        ? trialUrl?.originalUrl
-        : `https://${trialUrl?.originalUrl}`;
+      const redirectUrl = trialUrl.originalUrl.startsWith("http")
+        ? trialUrl.originalUrl
+        : `https://${trialUrl.originalUrl}`;
       return NextResponse.redirect(redirectUrl);
     }
 
