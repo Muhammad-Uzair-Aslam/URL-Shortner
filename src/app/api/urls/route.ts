@@ -14,7 +14,7 @@ export async function GET(req: Request) {
       include: { visits: true },
     });
     return NextResponse.json(urls);
-  } catch (error) {
+  } catch  {
     return NextResponse.json(
       { error: "Something went wrong" },
       { status: 500 }

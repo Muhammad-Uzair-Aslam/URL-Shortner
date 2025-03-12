@@ -1,5 +1,6 @@
 import React from "react";
 import { InputFieldProps } from "@/types/types";
+
 const CustomInput: React.FC<InputFieldProps> = ({
   type,
   value,

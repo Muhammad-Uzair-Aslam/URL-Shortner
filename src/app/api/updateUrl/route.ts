@@ -33,14 +33,14 @@ export async function PATCH(req: Request) {
       include: { visits: true },
     });
     return NextResponse.json(updatedUrl, { status: 200 });
-  } catch (error: any) {
-    if (error.code === "P2025") {
+  } catch (_error: any) {
+    if (_error.code === "P2025") {
       return NextResponse.json({ message: "URL not found" }, { status: 404 });
     }
     return NextResponse.json(
       {
         message: "An error occurred while updating the URL",
-        error: error.message || "Unknown server error",
+        error: _error.message || "Unknown server error",
       },
       { status: 500 }
     );

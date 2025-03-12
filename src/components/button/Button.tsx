@@ -1,11 +1,5 @@
 import React from "react";
-
-export type ButtonProps = {
-  title: string;
-  clickHandler?: () => void;
-  Type?: "button" | "submit" | "reset";
-  disabled?: boolean;
-};
+import { ButtonProps } from "@/types/types";
 
 export const Button: React.FC<ButtonProps> = ({
   Type,

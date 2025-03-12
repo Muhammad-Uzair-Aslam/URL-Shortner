@@ -19,7 +19,7 @@ export async function POST(req: Request) {
     const cookieStore = await cookies();
     const sessionId = cookieStore.get("trialSessionId")?.value || nanoid();
 
-    let shortCode =
+    const shortCode =
       customSlug && session
         ? customSlug.toLowerCase()
         : nanoid(8).toLowerCase();
@@ -83,9 +83,9 @@ export async function POST(req: Request) {
       },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (_error: any) {
     return NextResponse.json(
-      { error: error.message || "Something went wrong" },
+      { error: _error.message || "Something went wrong" },
       { status: 500 }
     );
   }

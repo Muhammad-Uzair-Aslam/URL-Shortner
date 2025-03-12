@@ -4,12 +4,13 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SignInForm from "@/components/signInForm/SignInForm";
 import React from "react";
+
 export default function Page() {
   return (
     <main className="min-h-screen  flex flex-col items-center justify-between relative overflow-hidden">
       <div className="z-10 mt-5">
         <ToastContainer />
-        <h1 className="text-[25px] font-semibold mb-6 bg-gradient-to-r from-[#EB568E] to-[#144EE3] text-transparent bg-clip-text">
+        <h1 className={`text-[25px] font-semibold mb-6 bg-gradient-to-r from-[#EB568E] to-[#144EE3] text-transparent bg-clip-text`}>
           Linkly
         </h1>
       </div>
@@ -20,8 +21,8 @@ export default function Page() {
         />
         <SignInForm />
       </div>
-      <div className="text-gray-400 text-sm z-10 mb-5">
-        <Link href="/signup" className="text-[#0066FF] hover:underline">
+      <div className={`text-gray-400 text-sm z-10 mb-5`}>
+        <Link href="/signup" className={`text-blue-500 hover:underline`}>
           Register
         </Link>{" "}
         if not already registered

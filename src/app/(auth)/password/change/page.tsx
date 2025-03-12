@@ -3,13 +3,14 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ChangePasswordForm from "@/components/changePasswordForm/ChangePasswordForm";
 import CustomText from "@/components/customText/CustomText";
+import { THEME_COLORS } from "@/constants/constants";
 
 export default function page() {
   return (
     <main className="min-h-screen flex flex-col items-center justify-between relative overflow-hidden">
       <div className="z-10 mt-5">
         <ToastContainer />
-        <h1 className="text-[25px] font-semibold mb-6 bg-gradient-to-r from-[#EB568E] to-[#144EE3] text-transparent bg-clip-text">
+        <h1 className={`text-[25px] font-semibold mb-6 bg-gradient-to-r from-[${THEME_COLORS.PRIMARY_GRADIENT_START}] to-[${THEME_COLORS.PRIMARY_GRADIENT_END}] text-transparent bg-clip-text`}>
           Linkly
         </h1>
       </div>
@@ -20,7 +21,7 @@ export default function page() {
         />
         <ChangePasswordForm />
       </div>
-      <div className="text-gray-400 text-sm z-10 mb-5"></div>
+      <div className={`text-gray-400 text-sm z-10 mb-5`}></div>
     </main>
   );
 }

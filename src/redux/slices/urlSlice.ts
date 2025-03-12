@@ -27,8 +27,8 @@ export const shortenUrl = createAsyncThunk(
         throw new Error(data.error || "Failed to shorten URL");
       }
       return { shortUrl: data.shortUrl, url: data.url };
-    } catch (error: any) {
-      return rejectWithValue(error.message || "Something went wrong");
+    } catch (_error:any) {
+      return rejectWithValue(_error.message || "Something went wrong");
     }
   }
 );
@@ -47,8 +47,8 @@ export const checkSlugAvailability = createAsyncThunk(
         throw new Error(data.error || "Slug check failed");
       }
       return data.isAvailable;
-    } catch (error: any) {
-      return rejectWithValue(error.message || "Error checking slug");
+    } catch (_error: any) {
+      return rejectWithValue(_error.message || "Error checking slug");
     }
   }
 );
@@ -74,8 +74,8 @@ export const updateUrl = createAsyncThunk(
         return rejectWithValue(data.message || "Failed to update URL");
       }
       return data;
-    } catch (error: any) {
-      return rejectWithValue(error.message || "Network error occurred");
+    } catch (_error) {
+      return rejectWithValue(_error || "Network error occurred");
     }
   }
 );

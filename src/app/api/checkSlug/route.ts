@@ -19,7 +19,7 @@ export async function GET(req: Request) {
 
     const isAvailable = !existingUrl && !existingTrialUrl;
     return NextResponse.json({ isAvailable }, { status: 200 });
-  } catch (error) {
+  } catch  {
     return NextResponse.json(
       { error: "Something went wrong" },
       { status: 500 }

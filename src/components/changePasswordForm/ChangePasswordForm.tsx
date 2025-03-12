@@ -55,8 +55,8 @@ export default function ChangePasswordForm() {
         value={confirmNewPassword || ""}
       />
       {loading && <Loader />}
-      {error && <p className="text-red-500">{error}</p>}
-      {resetMessage && <p className="text-green-500">{resetMessage}</p>}
+      {error && <p className={`text-red-500`}>{error}</p>}
+      {resetMessage && <p className={`text-green-600`}>{resetMessage}</p>}
       <Button title="Change Password" Type="submit" />
     </form>
   );

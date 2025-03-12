@@ -76,4 +76,17 @@ export type UrlState ={
     placeholder: string;
     fetchAction: "trial" | "urls";
   }
+  export type ButtonProps = {
+    title: string;
+    clickHandler?: () => void;
+    Type?: "button" | "submit" | "reset";
+    disabled?: boolean;
+  };
+  export type CustomTextProps = {
+    title: string;
+    description: string;
+  };
+  export type signoutProp = {
+    className: string;
+  };
   

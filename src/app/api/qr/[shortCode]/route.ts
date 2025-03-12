@@ -36,7 +36,7 @@ export async function GET(
       });
     }
     return NextResponse.json({ qrCode });
-  } catch (error) {
+  } catch  {
     return NextResponse.json(
       { error: "Something went wrong" },
       { status: 500 }

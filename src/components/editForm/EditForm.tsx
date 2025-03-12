@@ -8,6 +8,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "../loader/Loader";
 import { useUrlShortener } from "@/hooks/useCustomSlug";
+import { THEME_COLORS } from "@/constants/constants";
 
 export default function EditForm() {
   const {
@@ -36,26 +37,26 @@ export default function EditForm() {
         }}
       >
         <div className="space-y-4">
-          <div className="bg-[#1A1F2E] border-2 border-[#353C4A] rounded-[30px] p-1 py-2">
+          <div className={`bg-[${THEME_COLORS.BG_DARKEST}] border-2 border-[${THEME_COLORS.BORDER_SLUG}] rounded-[30px] p-1 py-2`}>
             <div className="flex items-center bg-transparent px-4 py-2">
-              <Link className="text-gray-400 mr-2" size={20} />
+              <Link className={`text-gray-400 mr-2`} size={20} />
               <input
                 type="text"
                 placeholder="Enter the link to shorten here"
-                className="w-full bg-transparent border-none focus:outline-none text-white"
+                className={`w-full bg-transparent border-none focus:outline-none text-white`}
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 disabled={loading}
               />
             </div>
           </div>
-          <div className="bg-[#1A1F2E] rounded-[30px] p-1 flex border-2 border-[#353C4A] w-[100%]">
+          <div className={`bg-[${THEME_COLORS.BG_DARKEST}] rounded-[30px] p-1 flex border-2 border-[${THEME_COLORS.BORDER_SLUG}] w-[100%]`}>
             <div className="flex items-center bg-transparent px-4 py-2 flex-1">
-              <Link className="text-gray-400 mr-2" size={20} />
+              <Link className={`text-gray-400 mr-2`} size={20} />
               <input
                 type="text"
                 placeholder="Enter Custom Slug (Logged-in users only)"
-                className="w-full bg-transparent border-none focus:outline-none text-white"
+                className={`w-full bg-transparent border-none focus:outline-none text-white`}
                 value={customSlug}
                 onChange={(e) =>
                   setCustomSlug(e.target.value.trim().toLowerCase())
@@ -72,12 +73,12 @@ export default function EditForm() {
             </div>
             <div className="block md:hidden">
               <button
-                className="w-[50px] bg-[#0066FF] text-white py-3 rounded-[25px] hover:bg-[#0052CC] transition-all duration-200 font-medium"
+                className={`w-[50px] bg-blue-500 text-white py-3 rounded-[25px] hover:bg-blue-700 transition-all duration-200 font-medium`}
                 onClick={() => handleAction(true)}
                 disabled={loading}
               >
                 <div className="flex justify-center">
-                  <FaArrowRight size={25} color="white" />
+                  <FaArrowRight size={25} color={'white'} />
                 </div>
               </button>
             </div>

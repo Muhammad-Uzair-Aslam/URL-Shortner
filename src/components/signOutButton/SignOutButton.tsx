@@ -1,9 +1,7 @@
 "use client";
 import { signOut } from "next-auth/react";
 import React from "react";
-export type signoutProp = {
-  className: string;
-};
+import { signoutProp } from "@/types/types";
 export default function SignOutButton({ className }: signoutProp) {
   return (
     <button onClick={() => signOut()} className={className}>

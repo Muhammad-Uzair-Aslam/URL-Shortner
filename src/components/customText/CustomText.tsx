@@ -1,8 +1,5 @@
 import React from "react";
-export type CustomTextProps = {
-  title: string;
-  description: string;
-};
+import { CustomTextProps } from "@/types/types";
 export default function CustomText({ title, description }: CustomTextProps) {
   return (
     <div>

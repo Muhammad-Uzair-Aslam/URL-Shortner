@@ -30,8 +30,8 @@ export default function ProfileForm() {
         value={name || ""}
       />
       {loading && <Loader />}
-      {error && <p className="text-red-500">{error}</p>}
-      {message && <p className="text-green-500">{message}</p>}
+      {error && <p className={`text-red-500`}>{error}</p>}
+      {message && <p className={`text-green-600`}>{message}</p>}
       <Button title="Update Profile" Type="submit" />
       <div>
         <Link href="/password/change">

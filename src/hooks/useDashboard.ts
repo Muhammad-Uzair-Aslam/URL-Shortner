@@ -69,7 +69,7 @@ export function useDashboardTable() {
       await dispatch(deleteUrl({ id })).unwrap();
       toast.success("URL deleted successfully");
       await dispatch(fetchUrls());
-    } catch (error: unknown) {
+    } catch (_error: unknown) {
       toast.error((error as string) || "Failed to delete URL");
     }
   };

@@ -4,21 +4,22 @@ import CustomText from "@/components/customText/CustomText";
 import CustomSlugInput from "@/components/customSlugInput/CustomSlugInput";
 import TrialTable from "@/components/trialTable/TrialTable";
 import AutoPasteClipboard from "@/components/autoPasteClipboard/AutoPasteClipboard";
+import { THEME_COLORS } from "@/constants/constants";
 
 export default function TrialPage() {
   return (
-    <div className="min-h-screen text-white">
+    <div className={`min-h-screen text-gray-100`}>
       <nav className="relative z-10 flex justify-between items-center p-6">
-        <h1 className="text-[34px] font-[700] text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500">
+        <h1 className={`text-[34px] font-[700] text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B6B] to-[#0066FF]`}>
           Linkly
         </h1>
         <div className="flex gap-4">
-          <button className="px-6 bg-[#181E29] rounded-[25px] py-2 flex text-[15px] items-center gap-2 text-gray-300 hover:text-white">
+          <button className={`px-6 bg-[${THEME_COLORS.BG_DARKER}] rounded-[25px] py-2 flex text-[15px] items-center gap-2 text-gray-300 hover:text-white`}>
             <Link href="./signin">Login</Link>
-            <CiLogin size={25} color="white" />
+            <CiLogin size={25} color='white' />
           </button>
           <div className="hidden md:block">
-            <button className="px-7 py-3 rounded-[30px] bg-[#0066FF]">
+            <button className={`px-7 py-3 rounded-[30px] bg-blue-500`}>
               <Link href="./signup">Register Now</Link>
             </button>
           </div>

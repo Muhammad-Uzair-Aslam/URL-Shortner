@@ -36,8 +36,8 @@ export async function DELETE(req: Request) {
       },
       { status: 200 }
     );
-  } catch (error: any) {
-    if (error.code === "P2025") {
+  } catch (_error: any) {
+    if (_error.code === "P2025") {
       return NextResponse.json(
         { message: "URL not found" },
         { status: 404 }
@@ -46,7 +46,7 @@ export async function DELETE(req: Request) {
     return NextResponse.json(
       {
         message: "An error occurred while deleting the URL",
-        error: error.message || "Unknown server error",
+        error: _error.message || "Unknown server error",
       },
       { status: 500 }
     );
