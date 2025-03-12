@@ -36,7 +36,7 @@ export function useChangePassword() {
       setOldPassword("");
       setNewPassword("");
       setConfirmNewPassword("");
-    } catch (err: unknown) {
+    } catch  {
       toast.error(error || "Failed to change password");
     }
   };

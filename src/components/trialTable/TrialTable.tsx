@@ -7,6 +7,7 @@ import Link from "next/link";
 import { QRCodeSVG } from "qrcode.react";
 import { ToastContainer } from "react-toastify";
 import Loader from "../loader/Loader";
+import Image from "next/image";
 
 export default function TrialTable() {
   const {
@@ -82,10 +83,11 @@ export default function TrialTable() {
                 </td>
                 <td className="p-4">
                   <div className="flex items-center gap-2">
-                    <img
+                    <Image
                       src={getFaviconUrl(item?.originalUrl || "")}
                       alt="Favicon"
-                      className="w-5 h-5"
+                      width={20}
+                      height={20}
                       onError={(e) =>
                         (e.currentTarget.src = "/fallback-icon.png")
                       }

@@ -32,7 +32,7 @@ export function useDashboardTable() {
       const urlToCopy = `http://localhost:3000/${text || ""}`;
       await navigator.clipboard.writeText(urlToCopy);
       toast.success("URL copied to clipboard!");
-    } catch (err: unknown) {
+    } catch {
       toast.error("Failed to copy URL");
     }
   };
@@ -58,7 +58,7 @@ export function useDashboardTable() {
         toast.info(
           "Web Share not supported. Short link copied to clipboard instead."
         );
-      } catch (err: unknown) {
+      } catch  {
         toast.error("Failed to copy short link");
       }
     }
@@ -69,7 +69,7 @@ export function useDashboardTable() {
       await dispatch(deleteUrl({ id })).unwrap();
       toast.success("URL deleted successfully");
       await dispatch(fetchUrls());
-    } catch (_error: unknown) {
+    } catch{
       toast.error((error as string) || "Failed to delete URL");
     }
   };

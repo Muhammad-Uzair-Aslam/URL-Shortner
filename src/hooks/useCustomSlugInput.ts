@@ -71,7 +71,7 @@ export function useCustomSlugInput(fetchAction: "trial" | "urls") {
 
       toast.success("URL shortened and QR code generated successfully!");
       setUrl("");
-    } catch (err: unknown) {
+    } catch  {
       toast.error("Failed to shorten URL or generate QR code");
     }
   };

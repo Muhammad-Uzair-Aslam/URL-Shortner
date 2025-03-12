@@ -17,7 +17,7 @@ export function useForgetPassword() {
       await dispatch(forgotPassword({ email: email || "" })).unwrap();
       toast.success("Reset link sent to your email!");
       setEmail("");
-    } catch (err: unknown) {
+    } catch  {
       toast.error(error || "Failed to send reset link");
     }
   };

@@ -15,7 +15,7 @@ export function useSignUpForm() {
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
   const dispatch = useAppDispatch();
-  const { loading, error, user } = useAppSelector((state) => state.auth);
+  const { loading, error } = useAppSelector((state) => state.auth);
   const router = useRouter();
 
   const SignupButtonHandler = async (e: React.FormEvent<HTMLFormElement>) => {

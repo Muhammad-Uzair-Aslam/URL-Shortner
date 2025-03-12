@@ -9,6 +9,7 @@ import { ToastContainer } from "react-toastify";
 import { QRCodeSVG } from "qrcode.react";
 import Loader from "../loader/Loader";
 import { useDashboardTable } from "@/hooks/useDashboard";
+import Image from "next/image";
 
 export default function DashboardTable() {
   const {
@@ -28,10 +29,11 @@ export default function DashboardTable() {
   } = useDashboardTable();
 
   const getPlatformIcon = (url: string) => (
-    <img
+    <Image
       src={getPlatformIconUrl(url)}
       alt="Favicon"
-      className="w-5 h-5"
+      width={20}
+      height={20}
       onError={(e) => (e.currentTarget.src = "/fallback-icon.png")}
     />
   );

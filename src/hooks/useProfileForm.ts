@@ -28,7 +28,7 @@ export function useProfileForm() {
         })
       ).unwrap();
       toast.success(message || "Profile updated successfully");
-    } catch (err: unknown) {
+    } catch {
       toast.error(error || "Failed to update profile");
     }
   };

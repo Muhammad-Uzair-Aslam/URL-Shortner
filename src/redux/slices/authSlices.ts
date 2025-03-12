@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { SignupPayload ,ForgotPasswordPayload,ResetPasswordPayload,ChangePasswordPayload,User,AuthState} from "@/types/types";
+import { SignupPayload ,ForgotPasswordPayload,ResetPasswordPayload,ChangePasswordPayload,AuthState} from "@/types/types";
 
 export const signupUser = createAsyncThunk(
   "auth/signupUser",

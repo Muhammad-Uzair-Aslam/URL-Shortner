@@ -21,7 +21,7 @@ export function useTrialTable() {
       const urlToCopy = `http://localhost:3000/${text || ""}`;
       await navigator?.clipboard?.writeText(urlToCopy);
       toast.success("URL copied to clipboard!");
-    } catch (err: unknown) {
+    } catch {
       toast.error("Failed to copy URL");
     }
   };
@@ -37,7 +37,7 @@ export function useTrialTable() {
         });
         toast.success("Short link shared successfully!");
       } catch (err: unknown) {
-        if ((err as any)?.name !== "AbortError") {
+        if ((err as Error)?.name !== "AbortError") {
           toast.error("Failed to share short link");
         }
       }
@@ -47,7 +47,7 @@ export function useTrialTable() {
         toast.info(
           "Web Share not supported. Short link copied to clipboard instead."
         );
-      } catch (err: unknown) {
+      } catch  {
         toast.error("Failed to copy short link");
       }
     }

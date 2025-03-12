@@ -27,8 +27,8 @@ export const shortenUrl = createAsyncThunk(
         throw new Error(data.error || "Failed to shorten URL");
       }
       return { shortUrl: data.shortUrl, url: data.url };
-    } catch (_error:any) {
-      return rejectWithValue(_error.message || "Something went wrong");
+    } catch (_error) {
+      return rejectWithValue(_error || "Something went wrong");
     }
   }
 );
@@ -47,8 +47,8 @@ export const checkSlugAvailability = createAsyncThunk(
         throw new Error(data.error || "Slug check failed");
       }
       return data.isAvailable;
-    } catch (_error: any) {
-      return rejectWithValue(_error.message || "Error checking slug");
+    } catch (_error) {
+      return rejectWithValue(_error || "Error checking slug");
     }
   }
 );
@@ -95,8 +95,8 @@ export const deleteUrl = createAsyncThunk(
         return rejectWithValue(data.message || "Failed to delete URL");
       }
       return { id };
-    } catch (error: any) {
-      return rejectWithValue(error.message || "Network error occurred");
+    } catch (_error) {
+      return rejectWithValue(_error || "Network error occurred");
     }
   }
 );
@@ -134,8 +134,8 @@ export const generateQrCode = createAsyncThunk(
       if (!response.ok)
         return rejectWithValue(data.error || "Failed to generate QR code");
       return { shortCode, qrCode: data.qrCode };
-    } catch (error: any) {
-      return rejectWithValue(error.message || "Something went wrong");
+    } catch (error) {
+      return rejectWithValue(error|| "Something went wrong");
     }
   }
 );

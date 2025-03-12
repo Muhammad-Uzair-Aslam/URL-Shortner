@@ -12,7 +12,7 @@ export function useAutoPasteClipboard(urlToCopy?: string) {
         try {
           await navigator?.clipboard?.writeText(urlToCopy);
           toast.success("URL copied to clipboard!");
-        } catch (err: unknown) {
+        } catch  {
           toast.error("Failed to copy URL");
         }
       };

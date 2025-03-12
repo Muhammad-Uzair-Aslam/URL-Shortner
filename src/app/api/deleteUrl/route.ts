@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { AuthOptions } from "@/app/api/auth/[...nextauth]/route";
+import { Prisma } from "@prisma/client";
 
 export async function DELETE(req: Request) {
   let body;
@@ -36,17 +37,27 @@ export async function DELETE(req: Request) {
       },
       { status: 200 }
     );
-  } catch (_error: any) {
-    if (_error.code === "P2025") {
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2025") {
       return NextResponse.json(
         { message: "URL not found" },
         { status: 404 }
       );
     }
+
+    if (error instanceof Error) {
+      return NextResponse.json(
+        {
+          message: "An error occurred while deleting the URL",
+          error: error.message,
+        },
+        { status: 500 }
+      );
+    }
+
     return NextResponse.json(
       {
-        message: "An error occurred while deleting the URL",
-        error: _error.message || "Unknown server error",
+        message: "An unknown error occurred",
       },
       { status: 500 }
     );

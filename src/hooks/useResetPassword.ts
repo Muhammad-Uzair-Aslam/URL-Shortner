@@ -33,7 +33,7 @@ export function useResetPassword() {
       ).unwrap();
       toast.success("Password reset successful! Please log in.");
       router.push("/signin");
-    } catch (err: unknown) {
+    } catch {
       toast.error(error || "Failed to reset password");
     }
   };

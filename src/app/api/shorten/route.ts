@@ -8,6 +8,7 @@ import { cookies } from "next/headers";
 export async function POST(req: Request) {
   try {
     const { originalUrl, customSlug } = await req.json();
+    
     if (!originalUrl || typeof originalUrl !== "string") {
       return NextResponse.json(
         { error: "Valid original URL is required" },
@@ -16,7 +17,7 @@ export async function POST(req: Request) {
     }
 
     const session = await getServerSession(AuthOptions);
-    const cookieStore = await cookies();
+    const cookieStore =await cookies();
     const sessionId = cookieStore.get("trialSessionId")?.value || nanoid();
 
     const shortCode =
@@ -29,6 +30,7 @@ export async function POST(req: Request) {
       const existingTrialUrl = await prisma.trialUrl.findUnique({
         where: { shortCode },
       });
+
       if (existingUrl || existingTrialUrl) {
         return NextResponse.json(
           { error: "Custom slug is already taken" },
@@ -37,7 +39,7 @@ export async function POST(req: Request) {
       }
     }
 
-    if (session && session.user) {
+    if (session?.user) {
       const shortUrl = await prisma.url.create({
         data: {
           originalUrl,
@@ -47,6 +49,7 @@ export async function POST(req: Request) {
           createdAt: new Date(),
         },
       });
+
       return NextResponse.json(
         {
           shortUrl: `http://localhost:3000/${shortCode}`,
@@ -58,6 +61,7 @@ export async function POST(req: Request) {
     }
 
     const trialCount = await prisma.trialUrl.count({ where: { sessionId } });
+
     if (trialCount >= 5) {
       return NextResponse.json(
         { error: "Trial limit reached. Please log in." },
@@ -74,7 +78,9 @@ export async function POST(req: Request) {
         createdAt: new Date(),
       },
     });
+
     cookieStore.set("trialSessionId", sessionId, { maxAge: 30 * 24 * 60 * 60 });
+
     return NextResponse.json(
       {
         shortUrl: `http://localhost:3000/${shortCode}`,
@@ -83,9 +89,16 @@ export async function POST(req: Request) {
       },
       { status: 200 }
     );
-  } catch (_error: any) {
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: 500 }
+      );
+    }
+
     return NextResponse.json(
-      { error: _error.message || "Something went wrong" },
+      { error: "Something went wrong" },
       { status: 500 }
     );
   }
