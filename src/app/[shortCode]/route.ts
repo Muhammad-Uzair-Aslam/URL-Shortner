@@ -2,18 +2,19 @@ import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
-  req: NextRequest,
+  request: NextRequest,
   { params }: { params: { shortCode: string } }
 ) {
   try {
-    if (!params?.shortCode) {
+    const { shortCode } = params; 
+    const normalizedShortCode = shortCode.replace(/\/+$/, "").toLowerCase();
+
+    if (!normalizedShortCode) {
       return NextResponse.json(
         { error: "Short code is required" },
         { status: 400 }
       );
     }
-
-    const normalizedShortCode = params.shortCode.replace(/\/+$/, "").toLowerCase();
 
     const loggedInUrl = await prisma.url.findUnique({
       where: { shortCode: normalizedShortCode },
@@ -44,9 +45,9 @@ export async function GET(
     }
 
     return NextResponse.json({ error: "URL not found" }, { status: 404 });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
-      { error: "Something went wrong", details: error },
+      { error: "Something went wrong" },
       { status: 500 }
     );
   }
