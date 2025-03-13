@@ -71,7 +71,7 @@ export default function TrialTable() {
                       className="text-gray-300 hover:text-blue-500"
                       target="_blank"
                     >
-                            {`${process.env.NEXT_PUBLIC_SITE_URL}/${item?.shortCode || ""}`}
+                            {`${process.env.NEXT_PUBLIC_BASE_URL}/${item?.shortCode || ""}`}
                             </Link>
                     <button
                       className="p-3 bg-gray-800 hover:bg-gray-900 rounded-[20px]"
@@ -105,7 +105,7 @@ export default function TrialTable() {
                       title="Share Short Link"
                     >
                       <QRCodeSVG
-                        value={`${process.env.NEXT_PUBLIC_SITE_URL}/${item?.shortCode || ""}`}
+                        value={`${process.env.NEXT_PUBLIC_BASE_URL}/${item?.shortCode || ""}`}
                         size={32}
                         bgColor="#181E29"
                         fgColor="#FFFFFF"

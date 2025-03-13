@@ -17,7 +17,7 @@ export async function POST(req: Request) {
       resetTokenExpiry: resetExpiry,
     },
   });
-  const resetLink = `${process.env.NEXT_PUBLIC_SITE_URL}/password/reset?token=${resetToken}`;
+  const resetLink = `${process.env.NEXTAUTH_URL}/password/reset?token=${resetToken}`;
   await sendEmail(
     email,
     "Password Reset",

@@ -17,13 +17,13 @@ export const authOptions: NextAuthOptions = {
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Email and Password are required");
         }
-        const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
+        const user = await prisma?.user?.findUnique({
+          where: { email: credentials?.email },
         });
         if (!user || !user.password) {
           throw new Error("User not found or no password set");
         }
-        const passwordMatch = await bcrypt.compare(credentials.password, user.password);
+        const passwordMatch = await bcrypt.compare(credentials?.password, user?.password);
         if (!passwordMatch) {
           throw new Error("Invalid credentials");
         }
@@ -37,9 +37,9 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async session({ session, token }) {
-      if (token?.email && session.user) {
-        const user = await prisma.user.findUnique({
-          where: { email: token.email },
+      if (token?.email && session?.user) {
+        const user = await prisma?.user?.findUnique({
+          where: { email: token?.email },
         });
         if (user) {
           session.user.name = user.name;
