@@ -27,6 +27,7 @@ export const authOptions: NextAuthOptions = {
         if (!passwordMatch) {
           throw new Error("Invalid credentials");
         }
+        console.log("Authorize success, returning user:", user);
         return user;
       },
     }),
@@ -37,6 +38,7 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async session({ session, token }) {
+      console.log("Session callback - token:", token, "session:", session);
       if (token?.email && session?.user) {
         const user = await prisma?.user?.findUnique({
           where: { email: token?.email },
@@ -56,7 +58,11 @@ export const authOptions: NextAuthOptions = {
       }
       return token;
     },
-    
+    async redirect({baseUrl}) {
+      return `${baseUrl}/dashboard`;
+    },
   },
-  
+  pages: {
+    signIn: "/signin",
+  },
 };
