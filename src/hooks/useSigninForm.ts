@@ -19,7 +19,7 @@ export function useSignInForm() {
       const result = await signIn("credentials", {
         email: email || "",
         password: password || "",
-        redirect: false,
+        redirect: true,
       });
       if (result?.error) {
         setError(result?.error || "");
