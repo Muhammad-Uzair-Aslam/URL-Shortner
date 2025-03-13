@@ -20,6 +20,7 @@ export function useSignInForm() {
         email: email || "",
         password: password || "",
         redirect: false,
+        callbackUrl:'/dashboard'
       });
       if (result?.error) {
         setError(result?.error || "");
