@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
+import type { Url, TrialUrl } from "@prisma/client";
 
 export async function GET(
   request: NextRequest,
@@ -16,12 +17,14 @@ export async function GET(
         { status: 400 }
       );
     }
+
     if (request.cookies.has(cookieName)) {
       return handleExistingCookie(normalizedShortCode);
     }
-    return handleNewVisit(normalizedShortCode, cookieName, request);
 
-  } catch (error) {
+    return handleNewVisit(normalizedShortCode, cookieName);
+
+  } catch  {
     return NextResponse.json(
       { error: "Something went wrong" },
       { status: 500 }
@@ -36,21 +39,24 @@ async function handleExistingCookie(shortCode: string) {
     : NextResponse.json({ error: "URL not found" }, { status: 404 });
 }
 
-async function handleNewVisit(shortCode: string, cookieName: string, request: NextRequest) {
+async function handleNewVisit(shortCode: string, cookieName: string) {
   const urlRecord = await findExistingUrl(shortCode);
 
   if (!urlRecord) {
     return NextResponse.json({ error: "URL not found" }, { status: 404 });
   }
+
   await recordVisit(urlRecord);
+
   const response = NextResponse.redirect(
     formatUrl(urlRecord.originalUrl),
-    307 
+    307
   );
+
   response.cookies.set({
     name: cookieName,
     value: "true",
-    maxAge: 86400, 
+    maxAge: 86400,
     path: "/",
     secure: true,
     sameSite: "lax",
@@ -60,19 +66,22 @@ async function handleNewVisit(shortCode: string, cookieName: string, request: Ne
   return response;
 }
 
-async function findExistingUrl(shortCode: string) {
-  return await prisma.url.findUnique({ where: { shortCode } }) || 
-         await prisma.trialUrl.findUnique({ where: { shortCode } });
+async function findExistingUrl(shortCode: string): Promise<Url | TrialUrl | null> {
+  return (
+    (await prisma.url.findUnique({ where: { shortCode } })) ||
+    (await prisma.trialUrl.findUnique({ where: { shortCode } })) ||
+    null
+  );
 }
 
-async function recordVisit(urlRecord: any) {
-  if (urlRecord.trialUrlId) {
-    await prisma.trialUrlVisit.create({
-      data: { trialUrlId: urlRecord.id, visitedAt: new Date() },
-    });
-  } else {
+async function recordVisit(urlRecord: Url | TrialUrl) {
+  if ("userId" in urlRecord) {
     await prisma.urlVisit.create({
       data: { urlId: urlRecord.id, visitedAt: new Date() },
+    });
+  } else {
+    await prisma.trialUrlVisit.create({
+      data: { trialUrlId: urlRecord.id, visitedAt: new Date() },
     });
   }
 }
