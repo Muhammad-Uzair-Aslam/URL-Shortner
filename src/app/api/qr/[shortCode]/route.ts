@@ -21,7 +21,7 @@ export async function GET(
     }
 
     const qrCode = await QRCode.toDataURL(
-      `${process.env.NEXTAUTH_URL+"/"+normalizedShortCode}`
+      `${process.env.NEXT_PUBLIC_BASE_URL+"/"+normalizedShortCode}`
     ); 
     if (url) {
       await prisma.url.update({

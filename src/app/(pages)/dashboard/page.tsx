@@ -8,11 +8,11 @@ export default function Page() {
     <div className="min-h-screen text-white">
       <div className="bg-[#0B101B]/50 border-gray-800 pb-5">
         <nav className="relative z-10 flex flex-col md:flex-row justify-between items-center p-4">
-          <div className="flex items-center justify-between md:hidden ">
+          <div className="flex items-center justify-between md:hidden mb-16 ">
             <h1 className="absolute top-5 left-5 text-[24px] font-[700] bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
               Linkly
             </h1>
-            <div className="-mr-64">
+            <div className="absolute top-5 right-5">
               <NotificationLoggedIn />
             </div>
           </div>
@@ -21,6 +21,7 @@ export default function Page() {
               Linkly
             </h1>
           </div>
+          
           <CustomSlugInput
             title="Shorten Now"
             placeholder="Enter the link here"
@@ -32,7 +33,7 @@ export default function Page() {
         </nav>
         <AutoPasteClipboard />
       </div>
-      <div className="relative z-10 flex bg-[#181E29] justify-center gap-8 py-3 text-sm shadow-md">
+      <div className="relative flex bg-[#181E29] justify-center gap-8 py-3 text-sm shadow-md">
         <button className="flex items-center gap-2 text-blue-500 border-b-2 border-blue-500 pb-2">
           <History size={16} />
           History

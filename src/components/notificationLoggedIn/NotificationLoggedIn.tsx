@@ -38,7 +38,7 @@ export default function NotificationLoggedIn() {
           </svg>
         </div>
         {isOpen && (
-          <div className="absolute top-[30px] left-0  bg-[#1A1F2E] rounded-lg shadow-lg z-[999]">
+          <div className="absolute left-0 bg-[#1A1F2E] rounded-lg shadow-lg ">
             <Link
               href="/edit"
               className="block px-4 py-2 text-white hover:bg-[#2A2F3E]"

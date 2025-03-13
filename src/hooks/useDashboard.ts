@@ -29,7 +29,7 @@ export function useDashboardTable() {
 
   const handleCopy = async (text: string) => {
     try {
-      const urlToCopy = `${process.env.NEXTAUTH_URL}/${text || ""}`;
+      const urlToCopy = `${process.env.NEXT_PUBLIC_BASE_URL}/${text || ""}`;
       await navigator.clipboard.writeText(urlToCopy);
       toast.success("URL copied to clipboard!");
     } catch {
@@ -38,7 +38,7 @@ export function useDashboardTable() {
   };
 
   const handleShareQr = async (shortCode: string) => {
-    const shareUrl = `${process.env.NEXTAUTH_URL}/${shortCode || ""}`;
+    const shareUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/${shortCode || ""}`;
     if (navigator.share) {
       try {
         await navigator.share({
@@ -85,8 +85,8 @@ export function useDashboardTable() {
   const handleUpdate = async (id: string) => {
     const updatedData = {
       id,
-      originalUrl: editForm.originalUrl || "",
-      isActive: editForm.isActive === true,
+      originalUrl: editForm?.originalUrl || "",
+      isActive: editForm?.isActive === true,
     };
     try {
       await dispatch(updateUrl(updatedData)).unwrap();

@@ -52,7 +52,7 @@ export async function POST(req: Request) {
 
       return NextResponse.json(
         {
-          shortUrl: `${process.env.NEXTAUTH_URL+"/"+shortCode}`,
+          shortUrl: `${process.env.NEXT_PUBLIC_BASE_URL+"/"+shortCode}`,
           url: shortUrl,
           message: "URL shortened successfully",
         },
@@ -83,7 +83,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json(
       {
-        shortUrl: `${process.env.NEXTAUTH_URL+"/"+shortCode}`,
+        shortUrl: `${process.env.NEXT_PUBLIC_BASE_URL+"/"+shortCode}`,
         url: shortUrl,
         message: "URL shortened successfully",
       },
