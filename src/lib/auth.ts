@@ -32,13 +32,12 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.AUTH_SECRET,
   session: {
     strategy: "jwt",
   },
   callbacks: {
     async session({ session, token }) {
-      console.log("Session callback - token:", token, "session:", session);
       if (token?.email && session?.user) {
         const user = await prisma?.user?.findUnique({
           where: { email: token?.email },
