@@ -18,6 +18,7 @@ export default function TrialTable() {
     handleCopy,
     handleShareQr,
     getFaviconUrl,
+    handleClick
   } = useTrialTable();
 
   return (
@@ -69,10 +70,12 @@ export default function TrialTable() {
                     <Link
                       href={`/${item?.shortCode || ""}`}
                       className="text-gray-300 hover:text-blue-500"
-                      target="_blank"
-                    >
-                            {`${process.env.NEXT_PUBLIC_BASE_URL}/${item?.shortCode || ""}`}
-                            </Link>
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleClick(item?.shortCode || "");
+                      }}                    >
+                      {`${process.env.NEXT_PUBLIC_BASE_URL}/${item?.shortCode || ""}`}
+                      </Link>
                     <button
                       className="p-3 bg-gray-800 hover:bg-gray-900 rounded-[20px]"
                       onClick={() => handleCopy(item?.shortCode || "")}

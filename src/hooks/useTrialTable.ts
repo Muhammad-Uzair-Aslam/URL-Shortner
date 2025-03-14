@@ -47,12 +47,14 @@ export function useTrialTable() {
         toast.info(
           "Web Share not supported. Short link copied to clipboard instead."
         );
-      } catch  {
+      } catch {
         toast.error("Failed to copy short link");
       }
     }
   };
-
+  const handleClick = (shortCode: string) => {
+    window.open(`/${shortCode}?click=true`, "_blank");
+  };
   const getFaviconUrl = (url: string) => {
     try {
       const urlObj = new URL(url || "");
@@ -70,6 +72,7 @@ export function useTrialTable() {
     error,
     remainingTrials,
     handleCopy,
+    handleClick,
     handleShareQr,
     getFaviconUrl,
   };
