@@ -7,6 +7,7 @@ export async function GET(
   try {
     const shortCode = (await params).shortCode;
     const normalizedShortCode = shortCode.replace(/\/+$/, "").toLowerCase();
+    const isClick = request.nextUrl.searchParams.get("click") === "true";
 
     if (!normalizedShortCode) {
       return NextResponse.json(
@@ -20,9 +21,11 @@ export async function GET(
     });
 
     if (loggedInUrl) {
-      await prisma.urlVisit.create({
-        data: { urlId: loggedInUrl?.id, visitedAt: new Date() },
-      });
+      if (isClick) {
+        await prisma.urlVisit.create({
+          data: { urlId: loggedInUrl?.id, visitedAt: new Date() },
+        });
+      }
       const redirectUrl = loggedInUrl?.originalUrl?.startsWith("http")
         ? loggedInUrl?.originalUrl
         : `https://${loggedInUrl?.originalUrl}`;
@@ -34,9 +37,11 @@ export async function GET(
     });
 
     if (trialUrl) {
-      await prisma.trialUrlVisit.create({
-        data: { trialUrlId: trialUrl?.id, visitedAt: new Date() },
-      });
+      if (isClick) {
+        await prisma.trialUrlVisit.create({
+          data: { trialUrlId: trialUrl?.id, visitedAt: new Date() },
+        });
+      }
       const redirectUrl = trialUrl?.originalUrl?.startsWith("http")
         ? trialUrl?.originalUrl
         : `https://${trialUrl?.originalUrl}`;

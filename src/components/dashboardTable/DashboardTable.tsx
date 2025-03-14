@@ -26,6 +26,7 @@ export default function DashboardTable() {
     startEditing,
     handleUpdate,
     getPlatformIconUrl,
+    handleClick,
   } = useDashboardTable();
 
   const getPlatformIcon = (url: string) => (
@@ -82,7 +83,9 @@ export default function DashboardTable() {
                             className="text-gray-300 hover:text-blue-500"
                             target="_blank"
                           >
-                            {`${process.env.NEXT_PUBLIC_BASE_URL}/${item?.shortCode || ""}`}
+                            {`${process.env.NEXT_PUBLIC_BASE_URL}/${
+                              item?.shortCode || ""
+                            }`}
                           </Link>
                           <div className="p-3 bg-gray-800 hover:bg-gray-900 rounded-[20px]">
                             <FaCopy
@@ -96,8 +99,49 @@ export default function DashboardTable() {
                             className="text-gray-500 cursor-not-allowed"
                             aria-disabled="true"
                           >
-                            {`${process.env.NEXT_PUBLIC_BASE_URL}/${item?.shortCode || ""}`}
-                            </span>
+                            {`${process.env.NEXT_PUBLIC_BASE_URL}/${
+                              item?.shortCode || ""
+                            }`}
+                          </span>
+                          <div>
+                            <FaCopy onClick={() => {}} />
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </td>
+                  <td className="p-4">
+                    <div className="flex items-center gap-2">
+                      {item?.isActive ? (
+                        <>
+                          <Link
+                            href={`/${item?.shortCode || ""}`}
+                            className="text-gray-300 hover:text-blue-500"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleClick(item?.shortCode || "");
+                            }}
+                          >
+                            {`${process.env.NEXT_PUBLIC_BASE_URL}/${
+                              item?.shortCode || ""
+                            }`}
+                          </Link>
+                          <div className="p-3 bg-gray-800 hover:bg-gray-900 rounded-[20px]">
+                            <FaCopy
+                              onClick={() => handleCopy(item?.shortCode || "")}
+                            />
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <span
+                            className="text-gray-500 cursor-not-allowed"
+                            aria-disabled="true"
+                          >
+                            {`${process.env.NEXT_PUBLIC_BASE_URL}/${
+                              item?.shortCode || ""
+                            }`}
+                          </span>
                           <div>
                             <FaCopy onClick={() => {}} />
                           </div>
@@ -137,8 +181,9 @@ export default function DashboardTable() {
                             title="Share Short Link"
                           >
                             <QRCodeSVG
-                              value={`${process.env.NEXT_PUBLIC_BASE_URL}/${item?.shortCode || ""}`}
-
+                              value={`${process.env.NEXT_PUBLIC_BASE_URL}/${
+                                item?.shortCode || ""
+                              }`}
                               size={32}
                               bgColor="#1A2333"
                               fgColor="#FFFFFF"
@@ -151,8 +196,9 @@ export default function DashboardTable() {
                             disabled
                           >
                             <QRCodeSVG
-                              value={`${process.env.NEXT_PUBLIC_BASE_URL}/${item?.shortCode || ""}`}
-
+                              value={`${process.env.NEXT_PUBLIC_BASE_URL}/${
+                                item?.shortCode || ""
+                              }`}
                               size={32}
                               bgColor="#1A2333"
                               fgColor="#FFFFFF"

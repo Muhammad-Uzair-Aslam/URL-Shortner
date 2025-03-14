@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from "@/hooks/useReduxHook";
 import { fetchUrls, deleteUrl, updateUrl,  } from "@/redux/slices/urlSlice";
 import { Url } from "@/types/types";
 import { toast } from "react-toastify";
-
 export function useDashboardTable() {
   const dispatch = useAppDispatch();
   const { urls, loading, error } = useAppSelector((state) => state.urls);
@@ -107,8 +106,13 @@ export function useDashboardTable() {
     }
   };
 
+  const handleClick = (shortCode:string) => {
+    window.open(`/${shortCode}?click=true`, "_blank");
+  };
+
   return {
     urls,
+    handleClick,
     loading,
     error,
     editingId,
