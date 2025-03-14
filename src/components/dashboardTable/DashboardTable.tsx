@@ -86,7 +86,7 @@ export default function DashboardTable() {
                               handleClick(item?.shortCode || "");
                             }}
                           >
-                            {`${process.env.NEXT_PUBLIC_BASE_URL}/${
+                            {`${process.env.NEXT_PUBLIC_BASE_URL}${
                               item?.shortCode || ""
                             }`}
                           </Link>

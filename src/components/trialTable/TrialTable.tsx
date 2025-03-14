@@ -74,7 +74,7 @@ export default function TrialTable() {
                         e.preventDefault();
                         handleClick(item?.shortCode || "");
                       }}                    >
-                      {`${process.env.NEXT_PUBLIC_BASE_URL}/${item?.shortCode || ""}`}
+                      {`${process.env.NEXT_PUBLIC_BASE_URL}${item?.shortCode || ""}`}
                       </Link>
                     <button
                       className="p-3 bg-gray-800 hover:bg-gray-900 rounded-[20px]"
