@@ -28,27 +28,53 @@ export function useTrialTable() {
 
   const handleShareQr = async (shortCode: string) => {
     const shareUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/${shortCode || ""}`;
-    if (navigator?.share) {
-      try {
-        await navigator.share({
-          title: "Share Short Link",
-          text: "Check out my trial short link with a QR code!",
-          url: shareUrl,
-        });
-        toast.success("Short link shared successfully!");
-      } catch (err: unknown) {
-        if ((err as Error)?.name !== "AbortError") {
-          toast.error("Failed to share short link");
-        }
+        try {
+      const canvas = document.createElement("canvas");
+      const context = canvas.getContext("2d");
+      const svgString = new XMLSerializer().serializeToString(
+        document.querySelector(`[data-qr-code="${shortCode}"]`) as SVGElement
+      );
+      
+      canvas.width = 300;
+      canvas.height = 300;
+      
+      const img = new Image();
+      const blob = new Blob([svgString], { type: "image/svg+xml" });
+      const url = URL.createObjectURL(blob);
+            await new Promise((resolve) => {
+        img.onload = resolve;
+        img.src = url;
+      });
+            context?.drawImage(img, 0, 0, 300, 300);
+            const imageBlob = await new Promise<Blob | null>((resolve) => {
+        canvas.toBlob(resolve, "image/png");
+      });
+      
+      if (!imageBlob) {
+        throw new Error("Failed to create image blob");
       }
-    } else {
-      try {
+            const file = new File([imageBlob], `qrcode-${shortCode}.png`, { 
+        type: "image/png" 
+      });
+            if (navigator?.share) {
+        await navigator.share({
+          title: "Share QR Code",
+          text: "Check out my short link with a QR code!",
+          url: shareUrl,
+          files: [file]
+        });
+        toast.success("QR code shared successfully!");
+      } else {
         await navigator?.clipboard?.writeText(shareUrl);
         toast.info(
-          "Web Share not supported. Short link copied to clipboard instead."
+          "Web Share with files not supported. Short link copied to clipboard instead."
         );
-      } catch {
-        toast.error("Failed to copy short link");
+      }
+            URL.revokeObjectURL(url);
+    } catch (err: unknown) {
+      if ((err as Error)?.name !== "AbortError") {
+        toast.error("Failed to share QR code");
+        console.error("Share error:", err);
       }
     }
   };

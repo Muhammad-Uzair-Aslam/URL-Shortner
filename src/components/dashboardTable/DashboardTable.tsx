@@ -10,7 +10,7 @@ import { QRCodeSVG } from "qrcode.react";
 import Loader from "../loader/Loader";
 import { useDashboardTable } from "@/hooks/useDashboard";
 import Image from "next/image";
-
+import { FaSort } from "react-icons/fa6";
 export default function DashboardTable() {
   const {
     urls,
@@ -48,7 +48,7 @@ export default function DashboardTable() {
         </div>
       )}
       {error && <p className="text-center text-red-500">{error}</p>}
-      <div className="bg-[#0B101B] overflow-x-auto rounded-lg overflow-hidden">
+      <div className="bg-[#0B101B] overflow-x-auto rounded-xl overflow-hidden">
         <table className="w-full">
           <thead className="bg-[#0D1117]">
             <tr className="text-[#C9CED6] text-center text-[15px] font-[700] border-b border-gray-800">
@@ -57,7 +57,7 @@ export default function DashboardTable() {
               <th className="p-4">QR Code</th>
               <th className="p-4">Clicks</th>
               <th className="p-4">Status</th>
-              <th className="p-4">Date</th>
+              <th className="p-4 flex items-center justify-center gap-2">Date <FaSort size={13}/></th>
               <th className="p-4">Action</th>
             </tr>
           </thead>
@@ -80,8 +80,8 @@ export default function DashboardTable() {
                         <>
                           <Link
                             href={`/${item?.shortCode || ""}`}
-                            className="text-gray-300 hover:text-blue-500"
-                            onClick={(e) => {
+                            className="text-gray-300 hover:text-blue-500 whitespace-nowrap overflow-hidden text-ellipsis"      
+                              onClick={(e) => {
                               e.preventDefault();
                               handleClick(item?.shortCode || "");
                             }}
@@ -151,6 +151,7 @@ export default function DashboardTable() {
                               size={32}
                               bgColor="#1A2333"
                               fgColor="#FFFFFF"
+                              data-qr-code={item?.shortCode || ""}
                             />
                           </button>
                         ) : (

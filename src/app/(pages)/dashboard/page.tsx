@@ -33,21 +33,23 @@ export default function Page() {
         </nav>
         <AutoPasteClipboard />
       </div>
-      <div className="relative flex bg-[#181E29] justify-center gap-8 py-3 text-sm shadow-md">
-        <button className="flex items-center gap-2 text-blue-500 border-b-2 border-blue-500 pb-2">
-          <History size={16} />
-          History
-        </button>
-        <button className="flex items-center gap-2 text-gray-200 hover:text-gray-300">
-          <BarChart2 size={16} />
-          Statistics
-        </button>
-        <button className="flex items-center gap-2 text-gray-200 hover:text-gray-300">
-          <Settings size={16} />
-          Settings
-        </button>
-      </div>
-      <main className="relative z-10 max-w-7xl mx-auto px-6 py-8">
+      <div className="relative flex bg-[#181E29] justify-center gap-8 text-sm">
+  <button className="flex items-center justify-center gap-2 text-white border-b-4 border-[#144EE3] pb-2 py-4 px-2 relative shadow-inner shadow-[#144EE3]/30">
+    <History size={16} />
+    <span style={{ textShadow: "-17px -15px 13px rgba(40, 100, 255, 0.8)" }}>History</span>
+    </button>
+  <button className="flex items-center gap-2 text-gray-200 hover:text-gray-300">
+    <BarChart2 size={16} />
+    Statistics
+  </button>
+  <button className="flex items-center gap-2 text-gray-200 hover:text-gray-300">
+    <Settings size={16} />
+    Settings
+  </button>
+</div>
+
+<div className="max-w-full bg-[#151A24]/70">
+      <main className="relative  max-w-[1200px] mx-auto px-6 py-8 ">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-lg flex items-center gap-2">History</h2>
           <button className="flex items-center gap-2 text-sm text-gray-200 border border-gray-700 bg-[#1A1F2E] px-3 py-1.5 rounded-[25px]">
@@ -55,8 +57,11 @@ export default function Page() {
             Filter
           </button>
         </div>
+        
         <DashboardTable />
+        
       </main>
+      </div>
     </div>
   );
 }

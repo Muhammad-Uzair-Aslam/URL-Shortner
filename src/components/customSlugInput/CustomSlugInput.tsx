@@ -31,7 +31,7 @@ export default function CustomSlugInput({
       </div>
       <div className="block md:hidden">
         <button
-          className="w-[50px] bg-[#0066FF] text-white py-3 rounded-[25px] hover:bg-[#0052CC] transition-all duration-200 font-medium"
+          className="w-[50px] bg-[#144EE3] shadow-md text-white py-3 rounded-[25px] hover:bg-[#0052CC] transition-all duration-200 font-medium"
           onClick={handleShorten}
         >
           <div className="flex justify-center">

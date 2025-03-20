@@ -8,6 +8,13 @@ export default {
   ],
   theme: {
     extend: {
+      backdropBlur: {
+        xs: "2px", 
+      },
+      boxShadow: {
+        'md': '0 8px 20px rgba(20, 78, 227, 0.4)',  
+        'lg': '0 15px 40px rgba(20, 78, 227, 0.5)',  
+      },
       animation: {
         fade458: "fade458 1s linear infinite",
       },

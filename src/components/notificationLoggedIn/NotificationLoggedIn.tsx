@@ -1,5 +1,5 @@
 "use client";
-import { Bell } from "lucide-react";
+import { FaBell } from "react-icons/fa";
 import { useSession } from "next-auth/react";
 import React, { useState } from "react";
 import SignOutButton from "../signOutButton/SignOutButton";
@@ -15,9 +15,9 @@ export default function NotificationLoggedIn() {
 
   return (
     <div className="flex items-center ">
-      <div className="relative">
+      <div className="relative ">
         <div
-          className="flex items-center  px-8 py-2 mx-w-[300px] bg-[#1A1F2E] rounded-[30px] cursor-pointer"
+          className="flex items-center  px-8 py-2 mx-w-[300px] bg-[#1A1F2E] border border-gray-500 rounded-[30px] cursor-pointer"
           onClick={toggleDropdown}
         >
           <div className="flex flex-col ">
@@ -38,7 +38,7 @@ export default function NotificationLoggedIn() {
           </svg>
         </div>
         {isOpen && (
-          <div className="absolute left-0 bg-[#1A1F2E] rounded-lg shadow-lg ">
+          <div className="absolute left-0 bg-[#1A1F2E] rounded-lg shadow-xl ">
             <Link
               href="/edit"
               className="block px-4 py-2 text-white hover:bg-[#2A2F3E]"
@@ -59,10 +59,10 @@ export default function NotificationLoggedIn() {
         )}
       </div>
 
-      <button className="p-3 ml-3 bg-blue-500 rounded-[30px] relative hidden md:block">
-        <Bell size={30} />
-        <span className="absolute top-1 right-1 w-2 h-2 bg-white rounded-full"></span>
-      </button>
+      <button className="p-4 ml-3 bg-[#144EE3] rounded-[30px] relative hidden md:block shadow-lg">
+        <FaBell size={20} color="white" />
+        <span className="absolute top-2 right-3  text-white text-xs rounded-full">2</span>
+        </button>
     </div>
   );
 }
