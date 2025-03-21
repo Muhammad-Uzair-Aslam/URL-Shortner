@@ -5,7 +5,7 @@ import AutoPasteClipboard from "@/components/autoPasteClipboard/AutoPasteClipboa
 import CustomSlugInput from "@/components/customSlugInput/CustomSlugInput";
 export default function Page() {
   return (
-    <div className="min-h-screen text-white">
+    <div className=" text-white ">
       <div className="bg-[#0B101B]/50 border-gray-800 pb-5">
         <nav className="relative z-10 flex flex-col md:flex-row justify-between items-center p-4">
           <div className="flex items-center justify-between md:hidden mb-16 ">
@@ -48,8 +48,8 @@ export default function Page() {
   </button>
 </div>
 
-<div className="max-w-full bg-[#151A24]/70">
-      <main className="relative  max-w-[1200px] mx-auto px-6 py-8 ">
+<div className="max-w-full bg-[#151A24]/50 min-h-[410px]">
+      <main className="relative  max-w-[1250px] mx-auto px-6 py-8 ">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-lg flex items-center gap-2">History</h2>
           <button className="flex items-center gap-2 text-sm text-gray-200 border border-gray-700 bg-[#1A1F2E] px-3 py-1.5 rounded-[25px]">
