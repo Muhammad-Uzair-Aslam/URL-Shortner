@@ -56,9 +56,9 @@ export default function DashboardTable() {
               <th className="p-4">Original Link</th>
               <th className="p-4">QR Code</th>
               <th className="p-4">Clicks</th>
-              <th className="p-4">Status</th>
-              <th className="p-4 flex items-center justify-center gap-2">Date <FaSort size={13}/></th>
-              <th className="p-4">Action</th>
+              <th className="p-4 ">Status</th>
+              <th className="flex items-center justify-center p-7 md:p-4 gap-2">Date <FaSort size={13}/></th>
+              <th className="p-4 ">Action</th>
             </tr>
           </thead>
           <tbody className="text-sm">
